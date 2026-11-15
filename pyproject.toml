@@ -23,4 +23,4 @@ test = ["pytest>=8.0"]
 heat3d-reforger-maps = "heat3d_ext_reforger.cli:main"
 
 [tool.setuptools]
-packages = ["heat3d_ext_reforger", "heat3d_update"]
+packages = ["heat3d_ext_reforger"]

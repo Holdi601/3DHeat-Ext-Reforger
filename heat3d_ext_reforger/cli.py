@@ -160,9 +160,9 @@ def main(argv: list[str] | None = None) -> int:
         # A quiet probe: GameFiles asks every installed game tool in turn.
         return _identify_verb(args)
     try:
-        import heat3d_update
+        from . import update
 
-        heat3d_update.startup("heat3d_ext_reforger")
+        update.startup("heat3d_ext_reforger")
     except Exception:  # an update check never stops an export
         pass
     from . import enfusionworld
