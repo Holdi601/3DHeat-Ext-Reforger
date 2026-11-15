@@ -1,0 +1,18 @@
+{
+ "--texture-size": "--texture-size",
+ "--trees adds trees": "--trees lisab puud",
+ "<world>.glb": "<world>.glb",
+ "Placed models": "Paigutatud mudelid",
+ "Sea": "Meri",
+ "Terrain": "Maastik",
+ "a box each;": "igaüks kastina;",
+ "at height zero": "nullkõrgusel",
+ "enfusion-world: an Arma Reforger world": "enfusion-world: Arma Reforgeri maailm",
+ "enfusion-worlds": "enfusion-worlds",
+ "metres: x east,": "meetrit: x ida,",
+ "tiles in their own colours,": "kahhelid oma värvides,",
+ "under worlds/": "kaustas worlds/",
+ "water:<world>": "water:<world>",
+ "worlds with a terrain": "maailmad, millel on maastik",
+ "y up, z north": "y üles, z põhja"
+}

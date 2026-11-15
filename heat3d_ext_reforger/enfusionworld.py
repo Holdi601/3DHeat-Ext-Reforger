@@ -61,7 +61,7 @@ from pathlib import Path
 
 import numpy as np
 
-from . import levelshome
+from heat3d_gamefiles import levelshome
 from .enfusion import EnfusionError, FileSystem, find_install, read_edds
 
 _ABSOLUTE_Y = 1 << 51
@@ -553,7 +553,7 @@ def export_world(
     trees: bool = False,
     log=print,
 ) -> WorldReport:
-    from .glb import Part, write_glb
+    from heat3d_gamefiles.glb import Part, write_glb
 
     started = time.time()
     fs = FileSystem.of_install(install)

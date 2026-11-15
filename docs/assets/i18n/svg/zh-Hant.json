@@ -1,0 +1,18 @@
+{
+ "--texture-size": "--texture-size",
+ "--trees adds trees": "--trees 加入樹木",
+ "<world>.glb": "<world>.glb",
+ "Placed models": "放置的模型",
+ "Sea": "海",
+ "Terrain": "地形",
+ "a box each;": "各為一個方塊；",
+ "at height zero": "位於高度零",
+ "enfusion-world: an Arma Reforger world": "enfusion-world：一個 Arma Reforger 世界",
+ "enfusion-worlds": "enfusion-worlds",
+ "metres: x east,": "公尺：x 朝東，",
+ "tiles in their own colours,": "以其自身顏色呈現的圖塊，",
+ "under worlds/": "位於 worlds/ 之下",
+ "water:<world>": "water:<world>",
+ "worlds with a terrain": "有地形的世界",
+ "y up, z north": "y 朝上，z 朝北"
+}

@@ -1,6 +1,6 @@
 ---
 title: Κόσμοι του Arma Reforger
-nav_order: 3
+nav_order: 2
 lang: "el"
 source: level-arma-reforger.md
 source_hash: "dd08cf0de8b6"
@@ -20,22 +20,22 @@ search_exclude: true
 1. **Παραθέστε τους κόσμους** που έχουν έδαφος:
 
    ```
-   python -m heat3d_gamefiles enfusion-worlds
-   python -m heat3d_gamefiles enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps enfusion-worlds
+   heat3d-reforger-maps enfusion-worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Εξάγετε έναν**, με το όνομα του φακέλου του κάτω από το `worlds/` όπως φαίνεται στη λίστα:
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> -o world.glb
+   heat3d-reforger-maps enfusion-world <world> -o world.glb
    ```
 
 3. **Παραλλαγές:**
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> --trees               # βλάστηση επίσης, ως κουτιά
-   python -m heat3d_gamefiles enfusion-world <world> --texture-size 0      # επίπεδο χρώμα, μικρό αρχείο
-   python -m heat3d_gamefiles enfusion-world <world> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps enfusion-world <world> --trees               # βλάστηση επίσης, ως κουτιά
+   heat3d-reforger-maps enfusion-world <world> --texture-size 0      # επίπεδο χρώμα, μικρό αρχείο
+   heat3d-reforger-maps enfusion-world <world> --ground-spacing 4 --no-structures
    ```
 
 4. **Ανοίξτε το `world.glb`** στο πάνελ Φόντο / πίστα του προβολέα του 3DHeat ([φόρτωση πίστας](https://holdi601.github.io/3DHeat/levels.html)).

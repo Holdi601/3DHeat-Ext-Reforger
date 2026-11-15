@@ -1,6 +1,6 @@
 ---
 title: Mundos de Arma Reforger
-nav_order: 3
+nav_order: 2
 lang: "es"
 source: level-arma-reforger.md
 source_hash: "83746901e212"
@@ -20,22 +20,22 @@ Exporta un mundo Enfusion completo de Arma Reforger instalado: el terreno con lo
 1. **Listar los mundos** que tienen terreno:
 
    ```
-   python -m heat3d_gamefiles enfusion-worlds
-   python -m heat3d_gamefiles enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps enfusion-worlds
+   heat3d-reforger-maps enfusion-worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Exportar uno**, por el nombre de su carpeta dentro de `worlds/` tal como aparece en la lista:
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> -o world.glb
+   heat3d-reforger-maps enfusion-world <world> -o world.glb
    ```
 
 3. **Variantes:**
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> --trees               # vegetation too, as boxes
-   python -m heat3d_gamefiles enfusion-world <world> --texture-size 0      # flat colour, small file
-   python -m heat3d_gamefiles enfusion-world <world> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps enfusion-world <world> --trees               # vegetation too, as boxes
+   heat3d-reforger-maps enfusion-world <world> --texture-size 0      # flat colour, small file
+   heat3d-reforger-maps enfusion-world <world> --ground-spacing 4 --no-structures
    ```
 
 4. **Abre `world.glb`** en el panel de Fondo / nivel del visor de 3DHeat ([cargar un nivel](https://holdi601.github.io/3DHeat/levels.html)).

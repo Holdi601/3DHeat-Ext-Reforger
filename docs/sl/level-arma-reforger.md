@@ -1,6 +1,6 @@
 ---
 title: "Svetovi Arma Reforger"
-nav_order: 3
+nav_order: 2
 lang: "sl"
 source: level-arma-reforger.md
 source_hash: "83746901e212"
@@ -20,22 +20,22 @@ Izvozi ves svet Enfusion nameščene igre Arma Reforger: teren v barvah njegovih
 1. **Izpišite svetove**, ki imajo teren:
 
    ```
-   python -m heat3d_gamefiles enfusion-worlds
-   python -m heat3d_gamefiles enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps enfusion-worlds
+   heat3d-reforger-maps enfusion-worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Izvozite enega** po njegovi imenu mape pod `worlds/`, kot je izpisan:
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> -o world.glb
+   heat3d-reforger-maps enfusion-world <world> -o world.glb
    ```
 
 3. **Različice:**
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> --trees               # vegetation too, as boxes
-   python -m heat3d_gamefiles enfusion-world <world> --texture-size 0      # flat colour, small file
-   python -m heat3d_gamefiles enfusion-world <world> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps enfusion-world <world> --trees               # vegetation too, as boxes
+   heat3d-reforger-maps enfusion-world <world> --texture-size 0      # flat colour, small file
+   heat3d-reforger-maps enfusion-world <world> --ground-spacing 4 --no-structures
    ```
 
 4. **Odprite `world.glb`** v panelu Ozadje / nivo pregledovalnika 3DHeat ([nalaganje nivojev](https://holdi601.github.io/3DHeat/levels.html)).

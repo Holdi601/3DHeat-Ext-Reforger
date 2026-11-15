@@ -1,0 +1,18 @@
+{
+ "--texture-size": "--texture-size",
+ "--trees adds trees": "--trees lisää puut",
+ "<world>.glb": "<world>.glb",
+ "Placed models": "Sijoitetut mallit",
+ "Sea": "Meri",
+ "Terrain": "Maasto",
+ "a box each;": "kukin laatikkona;",
+ "at height zero": "nollakorkeudella",
+ "enfusion-world: an Arma Reforger world": "enfusion-world: Arma Reforger -maailma",
+ "enfusion-worlds": "enfusion-worlds",
+ "metres: x east,": "metriä: x itään,",
+ "tiles in their own colours,": "laatat omissa väreissään,",
+ "under worlds/": "kansiossa worlds/",
+ "water:<world>": "water:<world>",
+ "worlds with a terrain": "maastolliset maailmat",
+ "y up, z north": "y ylös, z pohjoiseen"
+}

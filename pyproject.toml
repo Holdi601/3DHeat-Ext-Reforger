@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heat3d-ext-reforger"
+version = "0.1.0"
+description = "Arma Reforger worlds (Enfusion) from your own install into 3DHeat levels: terrain in its own colours, the sea, the placed models as boxes"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = [
+    "heat3d-gamefiles @ git+https://github.com/Holdi601/3DHeat-GameFiles.git@v1.1.0",
+    "numpy>=2.0",
+    "Pillow>=10.0",
+    "lz4>=4.3",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+
+[project.scripts]
+heat3d-reforger-maps = "heat3d_ext_reforger.cli:main"
+
+[tool.setuptools]
+packages = ["heat3d_ext_reforger", "heat3d_update"]

@@ -1,10 +1,9 @@
 ---
 title: Arma Reforger worlds
-parent: Whole levels
-nav_order: 3
+nav_order: 2
 ---
 
-# Arma Reforger worlds: `enfusion-worlds` and `enfusion-world`
+# Arma Reforger worlds: `worlds` and `world`
 
 **What is it?** A whole Arma Reforger world as one 3D file. **Why?** So heat
 from the game has the ground and the buildings under it. (*Enfusion* is the
@@ -12,31 +11,34 @@ engine Arma Reforger is made with; a *world* is what the game calls a map.)
 
 Exports a whole Enfusion world of the installed Arma Reforger: the terrain in
 the colours of its own supertexture tiles, the sea, and every placed model as
-a box, in the game's own metres.
+a box, in the game's own metres. `worlds` and `world` also answer to the
+names 3DHeat GameFiles gave them, `enfusion-worlds` and `enfusion-world`, with
+the same options.
 
 ![The steps of an enfusion-world export](assets/img/enfusion-steps.svg)
 
 ## Step by step
 
-1. **List the worlds** that have a terrain:
+1. **List the worlds** that have a terrain. The first line says where the game
+   was found:
 
    ```
-   python -m heat3d_gamefiles enfusion-worlds
-   python -m heat3d_gamefiles enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps worlds
+   heat3d-reforger-maps worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Export one**, by its folder name under `worlds/` as listed:
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> -o world.glb
+   heat3d-reforger-maps world <world> -o world.glb
    ```
 
 3. **Variations:**
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> --trees               # vegetation too, as boxes
-   python -m heat3d_gamefiles enfusion-world <world> --texture-size 0      # flat colour, small file
-   python -m heat3d_gamefiles enfusion-world <world> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps world <world> --trees               # vegetation too, as boxes
+   heat3d-reforger-maps world <world> --texture-size 0      # flat colour, small file
+   heat3d-reforger-maps world <world> --ground-spacing 4 --no-structures
    ```
 
 4. **Open `world.glb`** in the 3DHeat viewer's Background / level panel ([loading a level](https://holdi601.github.io/3DHeat/levels.html)).
@@ -45,15 +47,25 @@ a box, in the game's own metres.
 
 | Option | Default | Meaning |
 |---|---|---|
-| `<world>` | required | a world as `enfusion-worlds` prints it |
+| `<world>` | required | a world as `worlds` prints it |
 | `-o`, `--out FILE` | `<world>.glb` (in `$HEAT3D_LEVELS/<game>/` when that is set) | the file to write |
-| `--install FOLDER` | the Steam library that holds the game | the game's folder |
+| `--install FOLDER` | the Steam library that holds the game (`steamapps\common\Arma Reforger`) | the game's folder: the one with `addons` in it |
 | `--ground-spacing METRES` | 2 (the terrain's own) | the terrain's vertex spacing in the file |
 | `--texture-size PIXELS` | 4096 | the ground colour image's larger side; 0 for flat colour |
 | `--no-structures` | | leave the placed models out |
 | `--trees` | off | also place trees and other vegetation, as boxes |
 
 ## Example output
+
+`worlds`:
+
+```text
+Arma Reforger at D:\Games\Steam\steamapps\common\Arma Reforger: <n> worlds with a terrain
+  <world>                                  worlds/<world>/.../<world>.terr
+  ...
+```
+
+`world`, after a line per step (`<world>: reading ...`):
 
 ```text
 <world> -> world.glb
@@ -90,4 +102,21 @@ child entities, lakes and rivers, textures with pre-DX10 headers.
 
 **Terms:** the game's licence allows non-commercial use and forbids reverse
 engineering the game files. Reading your own install is your decision under it;
-the output is for your own use and is not to be shared.
+the output is for your own use and is not to be shared ([Terms and licence](terms.md)).
+
+## Messages and exit status
+
+| Message | Exit | Means |
+|---|---|---|
+| `Arma Reforger not found; pass --install <game folder>` | 2 | install the game through Steam, or pass `--install` |
+| `no world '<name>'; there are: ...` | 2 | the name is not one `worlds` lists; the line names those there are |
+| `needs 3DHeat GameFiles: ...` | 2 | install 3DHeat GameFiles ([Before you start](before-you-start.md)) |
+| anything else | 1 | an archive or file could not be read; the line says which |
+
+0 means the world was written; its report starts `<world> -> <file>`.
+
+## Through 3DHeat GameFiles
+
+3DHeat GameFiles' own `enfusion-worlds` and `enfusion-world` run this tool
+with the same arguments, so `python -m heat3d_gamefiles enfusion-world <world>`
+does the same once both are installed.

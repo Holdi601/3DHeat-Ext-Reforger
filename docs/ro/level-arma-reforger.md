@@ -1,6 +1,6 @@
 ---
 title: "Lumi Arma Reforger: `enfusion-worlds` și `enfusion-world`"
-nav_order: 3
+nav_order: 2
 lang: "ro"
 source: level-arma-reforger.md
 source_hash: "83746901e212"
@@ -20,22 +20,22 @@ Exportă o lume Enfusion întreagă a Arma Reforger instalat: terenul, în culor
 1. **Listați lumile** care au un teren:
 
    ```
-   python -m heat3d_gamefiles enfusion-worlds
-   python -m heat3d_gamefiles enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps enfusion-worlds
+   heat3d-reforger-maps enfusion-worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Exportați una**, după numele ei de folder din `worlds/`, cum apare în listă:
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> -o world.glb
+   heat3d-reforger-maps enfusion-world <world> -o world.glb
    ```
 
 3. **Variante:**
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> --trees               # vegetation too, as boxes
-   python -m heat3d_gamefiles enfusion-world <world> --texture-size 0      # flat colour, small file
-   python -m heat3d_gamefiles enfusion-world <world> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps enfusion-world <world> --trees               # vegetation too, as boxes
+   heat3d-reforger-maps enfusion-world <world> --texture-size 0      # flat colour, small file
+   heat3d-reforger-maps enfusion-world <world> --ground-spacing 4 --no-structures
    ```
 
 4. **Deschideți `world.glb`** în panoul Background / level al vizualizatorului 3DHeat ([încărcarea unui nivel](https://holdi601.github.io/3DHeat/levels.html)).

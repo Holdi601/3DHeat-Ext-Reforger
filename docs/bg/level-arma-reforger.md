@@ -1,6 +1,6 @@
 ---
 title: "Светове на Arma Reforger"
-nav_order: 3
+nav_order: 2
 lang: "bg"
 source: level-arma-reforger.md
 source_hash: "83746901e212"
@@ -20,22 +20,22 @@ search_exclude: true
 1. **Изброяване на световете**, които имат терен:
 
    ```
-   python -m heat3d_gamefiles enfusion-worlds
-   python -m heat3d_gamefiles enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps enfusion-worlds
+   heat3d-reforger-maps enfusion-worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Експорт на един**, по името на папката му в `worlds/`, както е изброено:
 
    ```
-   python -m heat3d_gamefiles enfusion-world <свят> -o world.glb
+   heat3d-reforger-maps enfusion-world <свят> -o world.glb
    ```
 
 3. **Варианти:**
 
    ```
-   python -m heat3d_gamefiles enfusion-world <свят> --trees               # и растителността, като кутии
-   python -m heat3d_gamefiles enfusion-world <свят> --texture-size 0      # плосък цвят, малък файл
-   python -m heat3d_gamefiles enfusion-world <свят> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps enfusion-world <свят> --trees               # и растителността, като кутии
+   heat3d-reforger-maps enfusion-world <свят> --texture-size 0      # плосък цвят, малък файл
+   heat3d-reforger-maps enfusion-world <свят> --ground-spacing 4 --no-structures
    ```
 
 4. **Отворете `world.glb`** в панела „Фон / ниво“ на визуализатора на 3DHeat ([зареждане на ниво](https://holdi601.github.io/3DHeat/levels.html)).

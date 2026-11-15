@@ -19,8 +19,8 @@ import lz4.block
 import numpy as np
 import pytest
 
-from heat3d_gamefiles.enfusion import EnfusionError, FileSystem, find_install, parse_tree, read_directory, read_edds, unlz4
-from heat3d_gamefiles.enfusionworld import (
+from heat3d_ext_reforger.enfusion import EnfusionError, FileSystem, find_install, parse_tree, read_directory, read_edds, unlz4
+from heat3d_ext_reforger.enfusionworld import (
     Prefabs,
     export_world,
     list_worlds,

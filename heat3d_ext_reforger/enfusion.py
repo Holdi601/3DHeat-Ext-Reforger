@@ -165,7 +165,7 @@ def find_install(where: str | Path | None = None) -> Path | None:
     """The game's folder: given, or in any Steam library."""
     candidates = [Path(where)] if where else []
     if not where:
-        from .steam import STEAM_DEFAULTS, steam_libraries
+        from heat3d_gamefiles.steam import STEAM_DEFAULTS, steam_libraries
 
         for library in [Path(p) for p in STEAM_DEFAULTS] + [Path(p) for p in steam_libraries()]:
             candidates.append(library / "steamapps" / "common" / STEAM_FOLDER)
@@ -215,7 +215,7 @@ def read_edds(data: bytes) -> np.ndarray:
 
     from PIL import Image
 
-    from .unrealtexture import _dds
+    from heat3d_gamefiles.unrealtexture import _dds
 
     if data[:4] != b"DDS ":
         raise EnfusionError("not an .edds (no DDS header)")

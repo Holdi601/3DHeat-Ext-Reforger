@@ -1,6 +1,6 @@
 ---
 title: Arma-Reforger-Welten
-nav_order: 3
+nav_order: 2
 lang: "de"
 source: level-arma-reforger.md
 source_hash: "83746901e212"
@@ -25,22 +25,22 @@ als Box, in den eigenen Metern des Spiels.
 1. **Die Welten auflisten**, die ein Gelände haben:
 
    ```
-   python -m heat3d_gamefiles enfusion-worlds
-   python -m heat3d_gamefiles enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps enfusion-worlds
+   heat3d-reforger-maps enfusion-worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Eine exportieren**, unter ihrem Ordnernamen in `worlds/`, wie aufgelistet:
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> -o world.glb
+   heat3d-reforger-maps enfusion-world <world> -o world.glb
    ```
 
 3. **Varianten:**
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> --trees               # vegetation too, as boxes
-   python -m heat3d_gamefiles enfusion-world <world> --texture-size 0      # flat colour, small file
-   python -m heat3d_gamefiles enfusion-world <world> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps enfusion-world <world> --trees               # vegetation too, as boxes
+   heat3d-reforger-maps enfusion-world <world> --texture-size 0      # flat colour, small file
+   heat3d-reforger-maps enfusion-world <world> --ground-spacing 4 --no-structures
    ```
 
 4. **`world.glb` öffnen** im Bereich Hintergrund / Level des 3DHeat-Viewers

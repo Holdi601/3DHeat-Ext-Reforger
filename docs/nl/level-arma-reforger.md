@@ -1,6 +1,6 @@
 ---
 title: Arma Reforger-werelden
-nav_order: 3
+nav_order: 2
 lang: "nl"
 source: level-arma-reforger.md
 source_hash: "83746901e212"
@@ -20,22 +20,22 @@ Exporteert een volledige Enfusion-wereld van het geïnstalleerde Arma Reforger: 
 1. **Toon de werelden** die een terrein hebben:
 
    ```
-   python -m heat3d_gamefiles enfusion-worlds
-   python -m heat3d_gamefiles enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps enfusion-worlds
+   heat3d-reforger-maps enfusion-worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Exporteer er één**, met zijn mapnaam onder `worlds/` zoals die in de lijst staat:
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> -o world.glb
+   heat3d-reforger-maps enfusion-world <world> -o world.glb
    ```
 
 3. **Varianten:**
 
    ```
-   python -m heat3d_gamefiles enfusion-world <world> --trees               # vegetation too, as boxes
-   python -m heat3d_gamefiles enfusion-world <world> --texture-size 0      # flat colour, small file
-   python -m heat3d_gamefiles enfusion-world <world> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps enfusion-world <world> --trees               # vegetation too, as boxes
+   heat3d-reforger-maps enfusion-world <world> --texture-size 0      # flat colour, small file
+   heat3d-reforger-maps enfusion-world <world> --ground-spacing 4 --no-structures
    ```
 
 4. **Open `world.glb`** in het paneel Achtergrond / level van de 3DHeat-viewer ([een level laden](https://holdi601.github.io/3DHeat/levels.html)).
