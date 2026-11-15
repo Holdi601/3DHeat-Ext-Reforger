@@ -215,7 +215,7 @@ def read_edds(data: bytes) -> np.ndarray:
 
     from PIL import Image
 
-    from heat3d_gamefiles.unrealtexture import _dds
+    from heat3d_gamefiles.unrealtexture import dds_file as _dds
 
     if data[:4] != b"DDS ":
         raise EnfusionError("not an .edds (no DDS header)")
