@@ -3,61 +3,72 @@ title: "Mondes Arma Reforger"
 nav_order: 2
 lang: "fr"
 source: level-arma-reforger.md
-source_hash: "83746901e212"
+source_hash: "3204eb3749fe"
 nav_exclude: true
 search_exclude: true
 ---
-# Mondes Arma Reforger : `enfusion-worlds` et `enfusion-world` {#arma-reforger-worlds-enfusion-worlds-and-enfusion-world}
+# Mondes Arma Reforger : `worlds` et `world` {#arma-reforger-worlds-worlds-and-world}
 
-**Qu'est-ce que c'est ?** Un monde complet d'Arma Reforger en un seul fichier 3D.
-**Pourquoi ?** Pour que la chaleur du jeu ait dessous le sol et les bâtiments. (*Enfusion* est le
+**Qu'est-ce que c'est ?** Un monde complet d'Arma Reforger en un seul fichier 3D. **Pourquoi ?** Pour que
+la chaleur du jeu ait sous elle le sol et les bâtiments. (*Enfusion* est le
 moteur avec lequel Arma Reforger est fait ; un *monde* est ce que le jeu appelle une carte.)
 
 Exporte un monde Enfusion complet d'Arma Reforger installé : le terrain dans les couleurs de ses
 propres tuiles de supertexture, la mer, et chaque modèle placé sous forme de boîte, dans les mètres
-propres au jeu.
+propres au jeu. `worlds` et `world` répondent aussi aux noms que leur ont donnés
+3DHeat GameFiles, `enfusion-worlds` et `enfusion-world`, avec les mêmes options.
 
 ![Les étapes d'un export enfusion-world](../assets/img/fr/enfusion-steps.svg)
 
 ## Pas à pas {#step-by-step}
 
-1. **Lister les mondes** qui ont un terrain :
+1. **Lister les mondes** qui ont un terrain. La première ligne indique où le jeu a été trouvé :
 
    ```
-   heat3d-reforger-maps enfusion-worlds
-   heat3d-reforger-maps enfusion-worlds --install "D:\Games\Arma Reforger"
+   heat3d-reforger-maps worlds
+   heat3d-reforger-maps worlds --install "D:\Games\Arma Reforger"
    ```
 
 2. **Exporter un monde**, par le nom de son dossier dans `worlds/` tel qu'il est listé :
 
    ```
-   heat3d-reforger-maps enfusion-world <world> -o world.glb
+   heat3d-reforger-maps world <world> -o world.glb
    ```
 
 3. **Variantes :**
 
    ```
-   heat3d-reforger-maps enfusion-world <world> --trees               # vegetation too, as boxes
-   heat3d-reforger-maps enfusion-world <world> --texture-size 0      # flat colour, small file
-   heat3d-reforger-maps enfusion-world <world> --ground-spacing 4 --no-structures
+   heat3d-reforger-maps world <world> --trees               # vegetation too, as boxes
+   heat3d-reforger-maps world <world> --texture-size 0      # flat colour, small file
+   heat3d-reforger-maps world <world> --ground-spacing 4 --no-structures
    ```
 
-4. **Ouvrez `world.glb`** dans le panneau Arrière-plan / niveau de la visionneuse 3DHeat
+4. **Ouvrez `world.glb`** dans le panneau Arrière-plan / niveau du visualiseur 3DHeat
    ([charger un niveau](https://holdi601.github.io/3DHeat/levels.html)).
 
 ## Options {#options}
 
 | Option | Par défaut | Signification |
 |---|---|---|
-| `<world>` | obligatoire | un monde tel que l'affiche `enfusion-worlds` |
-| `-o`, `--out FILE` | `<world>.glb` | le fichier à écrire |
-| `--install FOLDER` | la bibliothèque Steam qui contient le jeu | le dossier du jeu |
+| `<world>` | obligatoire | un monde tel que `worlds` l'affiche |
+| `-o`, `--out FILE` | `<world>.glb` (dans `$HEAT3D_LEVELS/<game>/` lorsque cette variable est définie) | le fichier à écrire |
+| `--install FOLDER` | la bibliothèque Steam qui contient le jeu (`steamapps\common\Arma Reforger`) | le dossier du jeu : celui qui contient `addons` |
 | `--ground-spacing METRES` | 2 (celui du terrain) | l'écart entre sommets du terrain dans le fichier |
 | `--texture-size PIXELS` | 4096 | le côté le plus long de l'image de couleur du sol ; 0 pour une couleur unie |
 | `--no-structures` | | laisser de côté les modèles placés |
 | `--trees` | désactivé | placer aussi les arbres et autre végétation, en boîtes |
 
 ## Exemple de sortie {#example-output}
+
+`worlds` :
+
+```text
+Arma Reforger at D:\Games\Steam\steamapps\common\Arma Reforger: <n> worlds with a terrain
+  <world>                                  worlds/<world>/.../<world>.terr
+  ...
+```
+
+`world`, après une ligne par étape (`<world>: reading ...`) :
 
 ```text
 <world> -> world.glb
@@ -71,7 +82,8 @@ propres au jeu.
 
 `ground:<world>` (le terrain), `water:<world>` (la mer, à hauteur zéro) et `structure:<world>`
 (les boîtes). Les coordonnées sont celles du jeu : x vers l'est, y vers le haut, z vers le nord,
-en mètres, ce que rapporte un enregistrement en jeu. Le repère du jeu est gauche ; l'option *Inverser un axe du monde* de la visionneuse l'affiche sans miroir.
+en mètres, ce que rapporte un enregistrement en jeu. Le repère du jeu est gauche ; l'option
+*Inverser un axe du monde* du visualiseur l'affiche sans miroir.
 
 ## Comment c'est lu et vérifié {#how-it-is-read-and-checked}
 
@@ -91,6 +103,23 @@ terrain décodé (avec la grille transposée, ils seraient à des mètres). Non 
 triangles des modèles eux-mêmes, les arbres par défaut (`--trees` les ajoute en boîtes), les
 entités enfants, les lacs et rivières, les textures aux en-têtes d'avant DX10.
 
-**Termes :** la licence du jeu autorise l'usage non commercial et interdit la rétro-ingénierie des
+**Conditions :** la licence du jeu autorise l'usage non commercial et interdit la rétro-ingénierie des
 fichiers du jeu. Lire votre propre installation relève de votre décision au titre de cette licence ;
-le résultat est pour votre usage personnel et ne doit pas être partagé.
+le résultat est pour votre usage personnel et ne doit pas être partagé ([Conditions et licence](terms.md)).
+
+## Messages et code de sortie {#messages-and-exit-status}
+
+| Message | Sortie | Signification |
+|---|---|---|
+| `Arma Reforger not found; pass --install <game folder>` | 2 | installez le jeu via Steam, ou passez `--install` |
+| `no world '<name>'; there are: ...` | 2 | le nom n'est pas l'un de ceux que `worlds` liste ; la ligne nomme ceux qui existent |
+| `needs 3DHeat GameFiles: ...` | 2 | installez 3DHeat GameFiles ([Avant de commencer](before-you-start.md)) |
+| autre chose | 1 | une archive ou un fichier n'a pas pu être lu ; la ligne indique lequel |
+
+0 signifie que le monde a été écrit ; son rapport commence par `<world> -> <file>`.
+
+## Par 3DHeat GameFiles {#through-3dheat-gamefiles}
+
+Les commandes `enfusion-worlds` et `enfusion-world` de 3DHeat GameFiles lancent cet outil
+avec les mêmes arguments, donc `python -m heat3d_gamefiles enfusion-world <world>`
+fait la même chose une fois les deux installés.
