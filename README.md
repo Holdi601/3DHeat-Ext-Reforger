@@ -15,9 +15,10 @@ buildings under it, in the game's own metres.
 command with step-by-step use and example output. Part of
 [3DHeat](https://github.com/Holdi601/3DHeat) ([documentation](https://holdi601.github.io/3DHeat/)).
 
-This tool is kept outside the 3DHeat tools on purpose: it reads Bohemia
-Interactive's game files. If it ever has to go, nothing else goes with it. The
-levels it writes stay on your machine.
+Each game reader is its own small project with its own licence file, releases
+and issue tracker, so it can be installed, updated, maintained - or withdrawn
+on a rights holder's request - on its own, without affecting the viewer or the
+other tools. The levels it writes stay on your machine.
 
 ## Install
 
@@ -80,12 +81,16 @@ frame is left-handed, and the viewer's *invert world axis* shows it unmirrored.
 
 ## Terms
 
-Arma Reforger and its worlds belong to Bohemia Interactive, who do not endorse
-this project. Nothing of the game is in this repository or downloaded by it.
-The game's licence allows non-commercial use and forbids reverse engineering
-the game files: reading your own install is your decision under it, and the
-level it writes is yours to view, not to share
+The tool reads the files of your own Arma Reforger install. Nothing of the
+game is in this repository or downloaded by it: no game assets, no game code,
+no DLLs. The level it writes stays on your machine, to view, not to share
 ([Terms and licence](https://holdi601.github.io/3DHeat-Ext-Reforger/terms.html)).
+
+3DHeat Reforger is not affiliated with or endorsed by Bohemia Interactive.
+Arma Reforger and related names and trademarks belong to their owners.
+Rights holders: open an issue at
+[github.com/Holdi601/3DHeat-Ext-Reforger/issues](https://github.com/Holdi601/3DHeat-Ext-Reforger/issues) -
+we respond quickly and remove anything on request.
 
 ## Tests
 

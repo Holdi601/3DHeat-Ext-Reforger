@@ -91,6 +91,4 @@ terénu (s prohozenou mřížkou by byly o metry mimo). Nekreslí se: trojúheln
 samotných modelů, stromy ve výchozím nastavení (`--trees` je přidá jako kvádry),
 podřízené entity, jezera a řeky, textury s hlavičkami před DX10.
 
-**Podmínky:** licence hry povoluje nekomerční použití a zakazuje reverzní
-inženýrství herních souborů. Čtení vlastní instalace je vaše vlastní rozhodnutí podle
-ní; výstup je pro vaše vlastní použití a nesdílí se.
+**Podmínky:** nástroj čte soubory vaší vlastní instalace; výstup je pro vaše vlastní použití a nesdílí se.

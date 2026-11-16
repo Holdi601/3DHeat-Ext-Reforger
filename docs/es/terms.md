@@ -3,23 +3,30 @@ title: Términos y licencia
 nav_order: 8
 lang: "es"
 source: terms.md
-source_hash: "358a481eaf89"
+source_hash: "9c8f2a00998f"
 nav_exclude: true
 search_exclude: true
 ---
 # Términos y licencia {#terms-and-licence}
 
-Esta página es un registro de lo que dicen las licencias, no asesoramiento legal.
+Esta página dice qué lee la herramienta, qué incluye y de dónde vienen sus fuentes.
 
 ## El juego de Bohemia Interactive {#bohemia-interactives-game}
 
-Arma Reforger y sus mundos pertenecen a Bohemia Interactive, que no respalda este proyecto. Esta herramienta no incluye nada del juego y no descarga nada: lee los archivos de la copia que **tú** instalaste, en tu equipo, fuera del juego. No modifica nada del juego, no se ejecuta junto a él y no se comunica con ningún servidor. Nada de los archivos del juego está cifrado, y nada se descifra.
+Arma Reforger y sus mundos pertenecen a Bohemia Interactive. 3DHeat Reforger no está afiliado a Bohemia Interactive ni cuenta con su respaldo; Arma Reforger y los nombres y marcas relacionados pertenecen a sus propietarios.
 
-La licencia del juego permite el uso no comercial y prohíbe la ingeniería inversa de los archivos del juego. Leer tu propia instalación es decisión tuya bajo esa licencia, y la obligación recae en quien ejecuta la herramienta. El mundo que escribe es contenido de la editora del juego: es para tu propio uso, no para compartirlo, publicarlo ni venderlo. El `.gitignore` del repositorio mantiene los archivos del juego y las exportaciones fuera del control de versiones según su tipo.
+Esta herramienta no incluye nada del juego - ningún contenido del juego, ningún código del juego, ninguna DLL - y no descarga nada: lee los archivos de la copia que **tú** instalaste, en tu equipo, fuera del juego. No modifica nada del juego, no se ejecuta junto a él y no se comunica con ningún servidor. Nada de los archivos del juego está cifrado, y nada se descifra.
 
-La vía propia de Bohemia hacia los datos del juego es **Arma Reforger Tools** (el Enfusion Workbench), gratuito en Steam para crear mods según las normas de modding de Bohemia. Esta herramienta no lo necesita ni lo usa; lee directamente los archivos comprimidos del juego instalado.
+El mundo que escribe se queda en tu equipo: es para tu propio uso, no para compartirlo, publicarlo ni venderlo. El `.gitignore` del repositorio mantiene los archivos del juego y las exportaciones fuera del control de versiones según su tipo.
 
-Por eso es un paquete aparte: si Bohemia Interactive algún día pide que se retire, se retira solo, y el visor, GameFiles y las demás herramientas siguen.
+Cada lector de juegos es un pequeño proyecto propio, con su propio archivo de licencia,
+sus versiones y su gestor de incidencias, así que puede instalarse, actualizarse,
+mantenerse - o retirarse a petición de un titular de derechos - por sí solo, sin afectar
+al visor ni a las demás herramientas.
+
+Titulares de derechos: pueden abrir una incidencia en
+[github.com/Holdi601/3DHeat-Ext-Reforger/issues](https://github.com/Holdi601/3DHeat-Ext-Reforger/issues) -
+respondemos rápido y retiramos lo que se nos pida.
 
 ## Los formatos {#the-formats}
 

@@ -3,7 +3,7 @@ title: Home
 nav_order: 1
 lang: "it"
 source: index.md
-source_hash: "859ac798f673"
+source_hash: "6e5d4ee92caa"
 nav_exclude: true
 search_exclude: true
 permalink: /it/
@@ -43,6 +43,11 @@ e elenca un mondo per riga; `world` termina con il suo rapporto (`ground`,
 Il livello è costruito dai file del gioco: resta **sul tuo computer**, per visualizzarlo, non per
 condividerlo o pubblicarlo ([Termini](terms.md)).
 
+Ogni lettore di giochi è un piccolo progetto a sé, con il proprio file di licenza, le
+proprie release e il proprio tracker delle segnalazioni: si può installare, aggiornare,
+mantenere - o ritirare su richiesta di un titolare dei diritti - da solo, senza toccare
+il visualizzatore né gli altri strumenti.
+
 ## Pagine {#pages}
 
 | Pagina | Cosa contiene |
@@ -50,7 +55,7 @@ condividerlo o pubblicarlo ([Termini](terms.md)).
 | [Prima di iniziare](before-you-start.md) | Python, GameFiles, un terminale, una prima esecuzione |
 | [Mondi di Arma Reforger: worlds e world](level-arma-reforger.md) | elencare i mondi, ogni opzione di un'esportazione, le sue parti, come è letto e verificato ogni formato |
 | [Identificare un file: identify](identify.md) | se un file è un archivio Enfusion, un terreno, un file di mondo o una texture |
-| [Termini e licenza](terms.md) | il gioco di Bohemia Interactive, le fonti, perché è un pacchetto separato |
+| [Termini e licenza](terms.md) | cosa legge lo strumento, le fonti, perché è un progetto a sé |
 | [Riferimento dei comandi](../cli-reference.md) | ogni opzione, generata dal codice |
 | [Manutenzione di questa documentazione](maintaining.md) | la lista di controllo per ogni rilascio |
 

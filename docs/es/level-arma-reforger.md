@@ -3,7 +3,7 @@ title: "Mundos de Arma Reforger: worlds y world"
 nav_order: 2
 lang: "es"
 source: level-arma-reforger.md
-source_hash: "3204eb3749fe"
+source_hash: "9a823263a0b2"
 nav_exclude: true
 search_exclude: true
 ---
@@ -91,7 +91,7 @@ No hace falta Workbench y nada está cifrado.
 
 Los objetos marcados como situados a una altura absoluta quedan a centímetros del terreno decodificado (con la rejilla transpuesta quedarían a metros de distancia). No se dibujan: los triángulos propios de los modelos, los árboles por defecto (`--trees` los añade como cajas), las entidades hijas, los lagos y ríos, y las texturas con cabeceras anteriores a DX10.
 
-**Términos:** la licencia del juego permite el uso no comercial y prohíbe la ingeniería inversa de los archivos del juego. Leer tu propia instalación es decisión tuya bajo esa licencia; la salida es para tu propio uso y no debe compartirse ([Términos y licencia](terms.md)).
+**Términos:** la herramienta lee los archivos de tu propia instalación; la salida es para tu propio uso y no debe compartirse ([Términos y licencia](terms.md)).
 
 ## Mensajes y código de salida {#messages-and-exit-status}
 

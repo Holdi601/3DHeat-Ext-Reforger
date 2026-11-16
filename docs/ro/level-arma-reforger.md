@@ -81,4 +81,4 @@ Nu este nevoie de Workbench, iar nimic nu este criptat.
 
 Obiectele marcate ca stând la o înălțime absolută se află la câțiva centimetri de terenul decodat (cu grila transpusă ar fi la metri distanță). Nu sunt desenate: triunghiurile proprii ale modelelor, copacii implicit (`--trees` îi adaugă ca casete), entitățile copil, lacurile și râurile, texturile cu antete dinainte de DX10.
 
-**Termeni:** licența jocului permite utilizarea necomercială și interzice ingineria inversă a fișierelor jocului. Citirea propriei instalări este decizia dumneavoastră în temeiul ei; rezultatul este pentru utilizarea dumneavoastră și nu se împărtășește.
+**Termeni:** instrumentul citește fișierele propriei instalări; rezultatul este pentru utilizarea dumneavoastră și nu se împărtășește.

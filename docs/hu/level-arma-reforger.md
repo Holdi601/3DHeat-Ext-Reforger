@@ -91,6 +91,4 @@ rács transzponálva lenne, méterekkel mellé lennének). Nincs kirajzolva: a m
 háromszögei, a fák alapértelmezés szerint (a `--trees` dobozként hozzáadja őket), a gyermek-
 entitások, a tavak és folyók, a DX10 előtti fejlécű textúrák.
 
-**Feltételek:** a játék licence nem kereskedelmi használatot enged, és tiltja a játékfájlok
-visszafejtését. A saját telepítésed olvasása a te döntésed ennek keretein belül; a kimenet a te
-saját használatodra szolgál, és nem osztható meg.
+**Feltételek:** az eszköz a saját telepítésed fájljait olvassa; a kimenet a te saját használatodra szolgál, és nem osztható meg.

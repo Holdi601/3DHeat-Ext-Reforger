@@ -91,6 +91,4 @@ dekodiranog terena (s transponiranom mrežom bili bi metrima daleko). Nije crtan
 vlastiti trokuti modela, drveće po zadanim postavkama (`--trees` ih dodaje kao kutije),
 podređeni entiteti, jezera i rijeke, teksture sa zaglavljima prije DX10.
 
-**Pojmovi:** licenca igre dopušta nekomercijalnu upotrebu i zabranjuje obrnuto
-inženjerstvo datoteka igre. Čitanje vlastite instalacije je vaša odluka unutar nje;
-izlaz je za vašu vlastitu upotrebu i ne smije se dijeliti.
+**Pojmovi:** alat čita datoteke vaše vlastite instalacije; izlaz je za vašu vlastitu upotrebu i ne smije se dijeliti.

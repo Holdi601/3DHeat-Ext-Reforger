@@ -81,4 +81,4 @@ Workbench gerekmez ve hiçbir şey şifreli değildir.
 
 Mutlak yükseklikte duran olarak işaretlenmiş nesneler, çözülmüş arazinin santimetreler içinde üstünde durur (ızgara devrik okunursa metrelerce kayar). Çizilmeyenler: modellerin kendi üçgenleri, varsayılan olarak ağaçlar (`--trees` bunları kutu olarak ekler), alt varlıklar, göller ve nehirler, DX10 öncesi başlıklı dokular.
 
-**Terimler:** oyunun lisansı kişisel, ticari olmayan kullanıma izin verir ve oyun dosyalarının tersine mühendisliğini yasaklar. Kendi kurulumunuzu okumak, bu lisans altında sizin kararınızdır; çıktı yalnızca kendi kullanımınız içindir ve paylaşılmamalıdır.
+**Terimler:** araç kendi kurulumunuzun dosyalarını okur; çıktı yalnızca kendi kullanımınız içindir ve paylaşılmamalıdır.

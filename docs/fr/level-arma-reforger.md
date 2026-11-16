@@ -3,7 +3,7 @@ title: "Mondes Arma Reforger"
 nav_order: 2
 lang: "fr"
 source: level-arma-reforger.md
-source_hash: "3204eb3749fe"
+source_hash: "9a823263a0b2"
 nav_exclude: true
 search_exclude: true
 ---
@@ -103,9 +103,7 @@ terrain décodé (avec la grille transposée, ils seraient à des mètres). Non 
 triangles des modèles eux-mêmes, les arbres par défaut (`--trees` les ajoute en boîtes), les
 entités enfants, les lacs et rivières, les textures aux en-têtes d'avant DX10.
 
-**Conditions :** la licence du jeu autorise l'usage non commercial et interdit la rétro-ingénierie des
-fichiers du jeu. Lire votre propre installation relève de votre décision au titre de cette licence ;
-le résultat est pour votre usage personnel et ne doit pas être partagé ([Conditions et licence](terms.md)).
+**Conditions :** l'outil lit les fichiers de votre propre installation ; le résultat est pour votre usage personnel et ne doit pas être partagé ([Conditions et licence](terms.md)).
 
 ## Messages et code de sortie {#messages-and-exit-status}
 

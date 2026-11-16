@@ -40,6 +40,11 @@ and lists one world per line; `world` ends with its report (`ground`,
 The level is built from the game's files: it stays **on your machine**, to
 view, not to share or publish ([Terms](terms.md)).
 
+Each game reader is its own small project with its own licence file, releases
+and issue tracker, so it can be installed, updated, maintained - or withdrawn
+on a rights holder's request - on its own, without affecting the viewer or the
+other tools.
+
 ## Pages
 
 | Page | What it covers |
@@ -47,7 +52,7 @@ view, not to share or publish ([Terms](terms.md)).
 | [Before you start](before-you-start.md) | Python, GameFiles, a terminal, a first run |
 | [Arma Reforger worlds: worlds and world](level-arma-reforger.md) | listing the worlds, every option of an export, its parts, how each format is read and checked |
 | [Identifying a file: identify](identify.md) | whether a file is an Enfusion archive, terrain, world file or texture |
-| [Terms and licence](terms.md) | Bohemia Interactive's game, the sources, why this is a separate package |
+| [Terms and licence](terms.md) | what the tool reads, the sources, why it is its own project |
 | [Command reference](cli-reference.md) | every option, generated from the code |
 | [Maintaining these docs](maintaining.md) | the release checklist |
 

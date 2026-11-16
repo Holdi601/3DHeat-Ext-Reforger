@@ -24,9 +24,19 @@ this or copied.
 
 ## The game's files
 
-Arma Reforger belongs to Bohemia Interactive, under the game's licence (which
-allows non-commercial use and forbids reverse engineering the game files) and
-the terms of Steam. This repository holds no file of the game and no level made
-from one; the tool reads the copy the user installed, on the user's machine,
-and the level it writes stays there. See
+Arma Reforger belongs to Bohemia Interactive. This repository holds no file of
+the game and no level made from one - no game assets, no game code, no DLLs;
+the tool reads the copy the user installed, on the user's machine, and the
+level it writes stays there. See
 [Terms and licence](https://holdi601.github.io/3DHeat-Ext-Reforger/terms.html).
+
+Each game reader is its own small project with its own licence file, releases
+and issue tracker, so it can be installed, updated, maintained - or withdrawn
+on a rights holder's request - on its own, without affecting the viewer or the
+other tools.
+
+3DHeat Reforger is not affiliated with or endorsed by Bohemia Interactive.
+Arma Reforger and related names and trademarks belong to their owners.
+Rights holders: open an issue at
+[github.com/Holdi601/3DHeat-Ext-Reforger/issues](https://github.com/Holdi601/3DHeat-Ext-Reforger/issues) -
+we respond quickly and remove anything on request.

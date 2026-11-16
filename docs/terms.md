@@ -5,30 +5,33 @@ nav_order: 8
 
 # Terms and licence
 
-This page is a record of what the licences say, not legal advice.
+This page says what the tool reads, what it ships and where its sources come
+from.
 
 ## Bohemia Interactive's game
 
-Arma Reforger and its worlds belong to Bohemia Interactive, who do not endorse
-this project. This tool ships nothing of the game and downloads nothing: it
-reads the files of the copy **you** installed, on your machine, outside the
-game. It changes nothing in the game, does not run alongside it and talks to no
-server. Nothing in the game's files is encrypted, and nothing is decrypted.
+Arma Reforger and its worlds belong to Bohemia Interactive. 3DHeat Reforger is
+not affiliated with or endorsed by Bohemia Interactive; Arma Reforger and
+related names and trademarks belong to their owners.
 
-The game's licence allows non-commercial use and forbids reverse engineering
-the game files. Reading your own install is your decision under it, and the
-obligation sits with whoever runs the tool. The world it writes is the game
-publisher's content: it is for your own use, not to be shared, published or
-sold. The repository's `.gitignore` keeps game files and exports out of version
-control by file type.
+This tool ships nothing of the game - no game assets, no game code, no DLLs -
+and downloads nothing: it reads the files of the copy **you** installed, on
+your machine, outside the game. It changes nothing in the game, does not run
+alongside it and talks to no server. Nothing in the game's files is encrypted,
+and nothing is decrypted.
 
-Bohemia's own route into the game's data is **Arma Reforger Tools** (the
-Enfusion Workbench), free on Steam for making mods under Bohemia's modding
-terms. This tool does not need it and does not use it; it reads the installed
-game's archives directly.
+The world it writes stays on your machine: it is for your own use, not to be
+shared, published or sold. The repository's `.gitignore` keeps game files and
+exports out of version control by file type.
 
-That is why it is a separate package: if Bohemia Interactive ever asks for it
-to go, it goes alone, and the viewer, GameFiles and the other tools stay.
+Each game reader is its own small project with its own licence file, releases
+and issue tracker, so it can be installed, updated, maintained - or withdrawn
+on a rights holder's request - on its own, without affecting the viewer or the
+other tools.
+
+Rights holders: open an issue at
+[github.com/Holdi601/3DHeat-Ext-Reforger/issues](https://github.com/Holdi601/3DHeat-Ext-Reforger/issues) -
+we respond quickly and remove anything on request.
 
 ## The formats
 

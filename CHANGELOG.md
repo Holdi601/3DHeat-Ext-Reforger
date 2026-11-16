@@ -23,6 +23,6 @@ Where each feature is documented
 | Installing, GameFiles, a first run | [Before you start](docs/before-you-start.md) |
 | Listing worlds and exporting one (`worlds`, `world` and every option), the parts, how each format is read and checked | [Arma Reforger worlds](docs/level-arma-reforger.md) |
 | `identify` | [Identifying a file](docs/identify.md) |
-| Bohemia Interactive's game, Arma Reforger Tools, the format sources | [Terms and licence](docs/terms.md) |
+| Bohemia Interactive's game, what the tool reads, the format sources, why it is its own project | [Terms and licence](docs/terms.md) |
 | Every option and part name, generated | [Command reference](docs/cli-reference.md) |
 | Release checklist for the docs | [Maintaining these docs](docs/maintaining.md) |

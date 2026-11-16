@@ -3,7 +3,7 @@ title: Arma-Reforger-Welten
 nav_order: 2
 lang: "de"
 source: level-arma-reforger.md
-source_hash: "3204eb3749fe"
+source_hash: "9a823263a0b2"
 nav_exclude: true
 search_exclude: true
 ---
@@ -108,10 +108,7 @@ mehrere Meter daneben). Nicht gezeichnet: die eigenen Dreiecke der Modelle, Bäu
 (`--trees` fügt sie als Boxen hinzu), untergeordnete Entitäten, Seen und Flüsse,
 Texturen mit Kopfzeilen vor DX10.
 
-**Bedingungen:** Die Lizenz des Spiels erlaubt nichtkommerzielle Nutzung und verbietet
-das Reverse Engineering der Spieldateien. Das Lesen deiner eigenen Installation ist
-deine Entscheidung unter dieser Lizenz; die Ausgabe ist für deinen eigenen Gebrauch
-bestimmt und wird nicht weitergegeben ([Bedingungen und Lizenz](terms.md)).
+**Bedingungen:** Das Werkzeug liest die Dateien deiner eigenen Installation; die Ausgabe ist für deinen eigenen Gebrauch bestimmt und wird nicht weitergegeben ([Bedingungen und Lizenz](terms.md)).
 
 ## Meldungen und Exit-Status {#messages-and-exit-status}
 

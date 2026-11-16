@@ -3,7 +3,7 @@ title: Mondi di Arma Reforger
 nav_order: 2
 lang: "it"
 source: level-arma-reforger.md
-source_hash: "3204eb3749fe"
+source_hash: "9a823263a0b2"
 nav_exclude: true
 search_exclude: true
 ---
@@ -101,9 +101,7 @@ griglia trasposta sarebbero a metri di distanza). Non vengono disegnati: i trian
 alberi per impostazione predefinita (`--trees` li aggiunge come riquadri), le entità figlie, laghi e fiumi,
 le texture con intestazioni precedenti a DX10.
 
-**Termini:** la licenza del gioco consente l'uso non commerciale e vieta l'ingegneria inversa dei file del
-gioco. Leggere la tua installazione è una tua decisione sotto quella licenza; il risultato è per uso
-personale e non va condiviso ([Termini e licenza](terms.md)).
+**Termini:** lo strumento legge i file della tua installazione; il risultato è per uso personale e non va condiviso ([Termini e licenza](terms.md)).
 
 ## Messaggi e stato di uscita {#messages-and-exit-status}
 

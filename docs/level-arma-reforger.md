@@ -100,9 +100,8 @@ decoded terrain (with the grid transposed they would be metres off). Not drawn:
 the models' own triangles, trees by default (`--trees` adds them as boxes),
 child entities, lakes and rivers, textures with pre-DX10 headers.
 
-**Terms:** the game's licence allows non-commercial use and forbids reverse
-engineering the game files. Reading your own install is your decision under it;
-the output is for your own use and is not to be shared ([Terms and licence](terms.md)).
+**Terms:** the tool reads the files of your own install; the output is for your
+own use and is not to be shared ([Terms and licence](terms.md)).
 
 ## Messages and exit status
 

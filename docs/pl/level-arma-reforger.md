@@ -81,4 +81,4 @@ Nie trzeba Workbencha i nic nie jest zaszyfrowane.
 
 Obiekty oznaczone jako stojące na bezwzględnej wysokości leżą w odległości centymetrów od odkodowanego terenu (przy transponowanej siatce byłyby oddalone o metry). Nie są rysowane: własne trójkąty modeli, drzewa domyślnie (`--trees` dodaje je jako pudełka), encje potomne, jeziora i rzeki, tekstury z nagłówkami sprzed DX10.
 
-**Terminy:** licencja gry dopuszcza użytek niekomercyjny i zabrania inżynierii wstecznej plików gry. Czytanie własnej instalacji to twoja decyzja w jej ramach; wynik służy do twojego własnego użytku i nie jest do udostępniania.
+**Terminy:** narzędzie czyta pliki twojej własnej instalacji; wynik służy do twojego własnego użytku i nie jest do udostępniania.

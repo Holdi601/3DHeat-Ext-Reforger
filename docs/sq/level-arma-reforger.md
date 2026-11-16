@@ -91,6 +91,4 @@ terreni i dekoduar (me rrjetën e transpozuar do të ishin metra larg). Nuk viza
 trekëndëshat e vetë modeleve, pemët si parazgjedhje (`--trees` i shton si kuti),
 entitetet fëmijë, liqenet dhe lumenjtë, teksturat me koka para-DX10.
 
-**Kushtet:** licenca e lojës lejon përdorim jo-komercial dhe ndalon inxhinierimin
-e kundërt të skedarëve të lojës. Leximi i instalimit tënd është vendimi yt sipas saj;
-dalja është për përdorimin tënd dhe nuk duhet ndarë me të tjerët.
+**Kushtet:** mjeti lexon skedarët e instalimit tënd; dalja është për përdorimin tënd dhe nuk duhet ndarë me të tjerët.

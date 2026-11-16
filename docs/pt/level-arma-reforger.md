@@ -94,6 +94,4 @@ Não são desenhados: os próprios triângulos dos modelos, árvores por padrão
 (`--trees` as adiciona como caixas), entidades filhas, lagos e rios, texturas com
 cabeçalhos anteriores ao DX10.
 
-**Termos:** a licença do jogo permite uso não comercial e proíbe a engenharia reversa
-dos ficheiros do jogo. Ler a sua própria instalação é uma decisão sua sob essa licença;
-a saída é para o seu próprio uso e não deve ser partilhada.
+**Termos:** a ferramenta lê os ficheiros da sua própria instalação; a saída é para o seu próprio uso e não deve ser partilhada.

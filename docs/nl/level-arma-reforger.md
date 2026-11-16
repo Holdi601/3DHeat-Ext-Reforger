@@ -83,4 +83,4 @@ Er is geen Workbench nodig en niets is versleuteld.
 
 Objecten die gemarkeerd zijn als staand op een absolute hoogte, staan binnen centimeters van het gedecodeerde terrein (met het rooster getransponeerd zouden ze meters ernaast zitten). Niet getekend: de driehoeken van de modellen zelf, bomen standaard (`--trees` voegt ze toe als dozen), kindentiteiten, meren en rivieren, en texturen met pre-DX10-headers.
 
-**Voorwaarden:** de licentie van het spel staat niet-commercieel gebruik toe en verbiedt reverse engineering van de spelbestanden. Het lezen van je eigen installatie is jouw keuze onder die licentie; de uitvoer is voor eigen gebruik en wordt niet gedeeld.
+**Voorwaarden:** de tool leest de bestanden van je eigen installatie; de uitvoer is voor eigen gebruik en wordt niet gedeeld.

@@ -81,4 +81,4 @@ Ni potreben Workbench in nič ni šifrirano.
 
 Predmeti, označeni kot stoječi na absolutni višini, stojijo v centimetrih od dekodiranega terena (pri transponirani mreži bi bili nekaj metrov narobe). Ni narisano: lastni trikotniki modelov, drevesa privzeto (`--trees` jih doda kot škatle), otročji entiteti, jezera in reke, teksture s pred-DX10 glavami.
 
-**Pogoji:** licenca igre dovoljuje nekomercialno uporabo in prepoveduje povratni inženiring datotek igre. Branje lastne namestitve je vaša odločitev po njej; izhod je za lastno uporabo in se ne deli.
+**Pogoji:** orodje bere datoteke vaše lastne namestitve; izhod je za lastno uporabo in se ne deli.

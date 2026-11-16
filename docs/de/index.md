@@ -3,7 +3,7 @@ title: Start
 nav_order: 1
 lang: "de"
 source: index.md
-source_hash: "859ac798f673"
+source_hash: "6e5d4ee92caa"
 nav_exclude: true
 search_exclude: true
 permalink: /de/
@@ -44,6 +44,11 @@ und listet eine Welt pro Zeile; `world` endet mit seinem Bericht (`ground`,
 Das Level wird aus den Dateien des Spiels gebaut. Es bleibt **auf deinem Rechner**, zum
 Ansehen, nicht zum Teilen oder Veröffentlichen ([Bedingungen und Lizenz](terms.md)).
 
+Jeder Spiel-Leser ist ein eigenes kleines Projekt mit eigener Lizenzdatei, eigenen
+Releases und eigenem Issue-Tracker. So lässt er sich für sich allein installieren,
+aktualisieren, pflegen - oder auf Wunsch eines Rechteinhabers zurückziehen -, ohne den
+Viewer oder die anderen Werkzeuge zu berühren.
+
 ## Seiten {#pages}
 
 | Seite | Was sie behandelt |
@@ -51,7 +56,7 @@ Ansehen, nicht zum Teilen oder Veröffentlichen ([Bedingungen und Lizenz](terms.
 | [Vor dem Start](before-you-start.md) | Python, GameFiles, ein Terminal, ein erster Lauf |
 | [Arma-Reforger-Welten: worlds und world](level-arma-reforger.md) | das Auflisten der Welten, jede Option eines Exports, seine Teile, wie jedes Format gelesen und geprüft wird |
 | [Eine Datei erkennen: identify](identify.md) | ob eine Datei ein Enfusion-Archiv, ein Gelände, eine Weltdatei oder eine Textur ist |
-| [Bedingungen und Lizenz](terms.md) | Bohemia Interactives Spiel, die Quellen, warum dies ein eigenes Paket ist |
+| [Bedingungen und Lizenz](terms.md) | was das Werkzeug liest, die Quellen, warum es ein eigenes Projekt ist |
 | [Befehlsreferenz](../cli-reference.md) | jede Option, aus dem Code erzeugt |
 | [Diese Dokumentation pflegen](maintaining.md) | die Checkliste für ein Release |
 

@@ -92,6 +92,4 @@ dekódovaného terénu (pri transponovanej mriežke by boli o metre ďalej). Nek
 trojuholníky samotných modelov, stromy štandardne (`--trees` ich pridá ako boxy),
 podradené entity, jazerá a rieky, textúry s hlavičkami pred DX10.
 
-**Podmienky:** licencia hry dovoľuje nekomerčné použitie a zakazuje spätné inžinierstvo
-herných súborov. Čítanie vašej vlastnej inštalácie je vaše rozhodnutie podľa tejto
-licencie; výstup je na váš vlastný účel a nezdieľa sa.
+**Podmienky:** nástroj číta súbory vašej vlastnej inštalácie; výstup je na váš vlastný účel a nezdieľa sa.

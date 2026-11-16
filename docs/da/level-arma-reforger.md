@@ -81,4 +81,4 @@ Ingen Workbench er nødvendig, og intet er krypteret.
 
 Objekter markeret som stående i en absolut højde sidder inden for centimeter af det afkodede terræn (med gitteret transponeret ville de være meter ude). Ikke tegnet: modellernes egne trekanter, træer som standard (`--trees` tilføjer dem som bokse), underentiteter, søer og floder, teksturer med DX10-forud headers.
 
-**Vilkår:** spillets licens tillader ikke-kommerciel brug og forbyder reverse engineering af spillets filer. At læse din egen installation er din beslutning under den; resultatet er til din egen brug og må ikke deles.
+**Vilkår:** værktøjet læser filerne i din egen installation; resultatet er til din egen brug og må ikke deles.
