@@ -10,7 +10,7 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 dependencies = [
-    "heat3d-gamefiles @ git+https://github.com/Holdi601/3DHeat-GameFiles.git@v1.1.0",
+    "heat3d-gamefiles @ https://github.com/Holdi601/3DHeat-GameFiles/archive/refs/tags/v1.1.0.zip",
     "numpy>=2.0",
     "Pillow>=10.0",
     "lz4>=4.3",

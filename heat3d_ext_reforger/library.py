@@ -15,7 +15,7 @@ from pathlib import Path
 
 #: What to say when it is nowhere.
 MISSING = (
-    "needs 3DHeat GameFiles: pip install git+https://github.com/Holdi601/3DHeat-GameFiles.git, "
+    "needs 3DHeat GameFiles: pip install https://github.com/Holdi601/3DHeat-GameFiles/archive/refs/tags/v1.1.0.zip, "
     "or set HEAT3D_GAMEFILES to its folder"
 )
 

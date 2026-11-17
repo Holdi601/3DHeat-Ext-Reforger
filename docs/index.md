@@ -21,24 +21,35 @@ game calls a map.)
 
 ## Quick start
 
-New to the command line? Read [Before you start](before-you-start.md) first.
-You need Python 3.10 or later, [3DHeat GameFiles](https://holdi601.github.io/3DHeat-GameFiles/)
-(the library this tool reads with) and Arma Reforger installed through Steam.
-Run these in the folder you cloned or unzipped:
+You need Windows, Python 3.10 or later ("Add python.exe to PATH" ticked in its
+installer), Arma Reforger installed through Steam (found by itself) and about
+200 MB of disk space for a small world like Arland, more for the large ones; no
+Git. New to the command line? Read [Before you start](before-you-start.md) first.
 
 ```bash
-python -m pip install -e .                          # installs heat3d-reforger-maps, and GameFiles with it
-heat3d-reforger-maps worlds                         # where the game is, and its worlds
-heat3d-reforger-maps world <world> -o world.glb     # one world as a level
+python -m pip install https://github.com/Holdi601/3DHeat-Ext-Reforger/archive/refs/tags/v0.1.0.zip
+heat3d-reforger-maps worlds                          # where the game is, and its worlds
+heat3d-reforger-maps world Arland -o Arland.glb      # one world as a level
 ```
 
-`worlds` starts with `Arma Reforger at <the game's folder>: <n> worlds with a terrain`
-and lists one world per line; `world` ends with its report (`ground`,
-`structure`, `water`). Then load `world.glb` in the viewer's
-**Background / level** panel ([loading a level](https://holdi601.github.io/3DHeat/levels.html)).
+The install brings [3DHeat GameFiles](https://holdi601.github.io/3DHeat-GameFiles/),
+the library it reads with. `worlds` starts with
+`Arma Reforger at <the game's folder>: <n> worlds with a terrain` and lists one
+world per line; `world` ends with its report (`ground`, `structure`, `water`).
+`Arland.glb` lands in the folder you ran it in, about 200 MB in about 10
+seconds; without `-o` it is `<world>.glb`. A game outside the Steam libraries
+needs `--install "<game folder>"`.
 
-The level is built from the game's files: it stays **on your machine**, to
-view, not to share or publish ([Terms](terms.md)).
+Then open the `.glb` in the [3DHeat viewer](https://github.com/Holdi601/3DHeat#quick-start):
+download it (**Code -> Download ZIP**, unpack), double-click `start.bat` (it
+offers to install Node.js when it is missing and opens `http://127.0.0.1:5273`),
+then **Background / level -> 3D model...** and pick the file
+([loading a level](https://holdi601.github.io/3DHeat/levels.html)). The game's
+frame is left-handed: **Invert world axis** (under **Camera & scene**) shows it
+unmirrored. The level stays on your machine.
+
+When a new release is out, the tool says so when it starts and offers to
+update itself.
 
 Each game reader is its own small project with its own licence file, releases
 and issue tracker, so it can be installed, updated, maintained - or withdrawn

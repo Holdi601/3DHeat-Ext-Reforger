@@ -12,6 +12,8 @@
   with the names there are.
 - `identify <file>`: an Enfusion archive, terrain, terrain tile, world file or
   texture described; exit 2 and `not an Arma Reforger file` for anything else.
+- Installs with one pip line from the release zip, no Git needed (GameFiles comes from its own release zip); a pip install knows its version and updates itself with pip when a newer release is out.
+- README: a quick start for new users.
 
 ## Docs
 

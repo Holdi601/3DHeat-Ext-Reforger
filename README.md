@@ -20,7 +20,44 @@ and issue tracker, so it can be installed, updated, maintained - or withdrawn
 on a rights holder's request - on its own, without affecting the viewer or the
 other tools. The levels it writes stay on your machine.
 
-## Install
+## Quick start for new users
+
+You need: Windows, [Python](https://www.python.org/downloads/) 3.10 or later
+("Add python.exe to PATH" ticked in its installer), Arma Reforger installed
+through Steam (found by itself), and about 200 MB of disk space for a small
+world like Arland, more for the large ones. No Git is needed.
+
+1. Install the tool (one line, in PowerShell or a command prompt); it brings
+   [3DHeat GameFiles](https://github.com/Holdi601/3DHeat-GameFiles), the
+   library it reads with:
+
+   ```bash
+   python -m pip install https://github.com/Holdi601/3DHeat-Ext-Reforger/archive/refs/tags/v0.1.0.zip
+   ```
+
+2. List the worlds and export one (a game outside the Steam libraries needs
+   `--install "<game folder>"`):
+
+   ```bash
+   heat3d-reforger-maps worlds
+   heat3d-reforger-maps world Arland -o Arland.glb
+   ```
+
+3. The output is `Arland.glb` in the folder you ran it in (about 200 MB, in
+   about 10 seconds); `world` ends with its report (`ground`, `structure`,
+   `water`). Without `-o` it is `<world>.glb`.
+4. Open it in the [3DHeat viewer](https://github.com/Holdi601/3DHeat#quick-start):
+   download the viewer (**Code -> Download ZIP**, unpack) and double-click
+   `start.bat`; it offers to install [Node.js](https://nodejs.org/) when it is
+   missing and opens Chrome or Edge at `http://127.0.0.1:5273`. There,
+   **Background / level -> 3D model...** and pick the `.glb`. The game's frame
+   is left-handed: **Invert world axis** (under **Camera & scene**) shows it
+   unmirrored.
+
+When a new release is out, the tool says so when it starts and offers to
+update itself (`python -m heat3d_ext_reforger.update` does the same).
+
+## Install from a checkout
 
 New to the command line? Read [Before you start](https://holdi601.github.io/3DHeat-Ext-Reforger/before-you-start.html) first.
 

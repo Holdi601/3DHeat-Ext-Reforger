@@ -3,7 +3,7 @@ title: Start
 nav_order: 1
 lang: "de"
 source: index.md
-source_hash: "6e5d4ee92caa"
+source_hash: "df34d50532d2"
 nav_exclude: true
 search_exclude: true
 permalink: /de/
@@ -25,24 +25,35 @@ das Spiel eine Karte nennt.)
 
 ## Schnellstart {#quick-start}
 
-Neu in der Kommandozeile? Lies zuerst [Vor dem Start](before-you-start.md). Du brauchst
-Python 3.10 oder neuer, [3DHeat GameFiles](https://holdi601.github.io/3DHeat-GameFiles/)
-(die Bibliothek, mit der dieses Werkzeug liest) und Arma Reforger, installiert über Steam.
-Führe diese Befehle in dem Ordner aus, in den du das Werkzeug geklont oder entpackt hast:
+Du brauchst Windows, Python 3.10 oder neuer (im Installer "Add python.exe to PATH"
+ankreuzen), Arma Reforger über Steam installiert (wird von selbst gefunden) und etwa
+200 MB Platz für eine kleine Welt wie Arland, mehr für die großen; Git ist nicht nötig.
+Neu in der Kommandozeile? Lies zuerst [Vor dem Start](before-you-start.md).
 
 ```bash
-python -m pip install -e .                          # installs heat3d-reforger-maps, and GameFiles with it
-heat3d-reforger-maps worlds                         # where the game is, and its worlds
-heat3d-reforger-maps world <world> -o world.glb     # one world as a level
+python -m pip install https://github.com/Holdi601/3DHeat-Ext-Reforger/archive/refs/tags/v0.1.0.zip
+heat3d-reforger-maps worlds                          # wo das Spiel liegt, und seine Welten
+heat3d-reforger-maps world Arland -o Arland.glb      # eine Welt als Level
 ```
 
-`worlds` beginnt mit `Arma Reforger at <the game's folder>: <n> worlds with a terrain`
-und listet eine Welt pro Zeile; `world` endet mit seinem Bericht (`ground`,
-`structure`, `water`). Lade dann `world.glb` im Viewer-Bereich **Hintergrund / Level**
-([Level laden](https://holdi601.github.io/3DHeat/levels.html)).
+Die Installation bringt [3DHeat GameFiles](https://holdi601.github.io/3DHeat-GameFiles/)
+mit, die Bibliothek, mit der es liest. `worlds` beginnt mit
+`Arma Reforger at <the game's folder>: <n> worlds with a terrain` und listet eine Welt
+pro Zeile; `world` endet mit seinem Bericht (`ground`, `structure`, `water`).
+`Arland.glb` landet in dem Ordner, in dem du den Befehl ausgeführt hast, etwa 200 MB
+in etwa 10 Sekunden; ohne `-o` heißt sie `<world>.glb`. Liegt das Spiel in keiner
+Steam-Bibliothek, nenne seinen Ordner mit `--install "<Spielordner>"`.
 
-Das Level wird aus den Dateien des Spiels gebaut. Es bleibt **auf deinem Rechner**, zum
-Ansehen, nicht zum Teilen oder Veröffentlichen ([Bedingungen und Lizenz](terms.md)).
+Dann öffne die `.glb` im [3DHeat-Viewer](https://github.com/Holdi601/3DHeat#quick-start):
+herunterladen (**Code -> Download ZIP**, entpacken), `start.bat` doppelklicken (es bietet
+an, Node.js zu installieren, wenn es fehlt, und öffnet `http://127.0.0.1:5273`), dann
+**Hintergrund / Level -> 3D-Modell...** und die Datei wählen
+([Level laden](https://holdi601.github.io/3DHeat/levels.html)). Das Koordinatensystem des
+Spiels ist linkshändig: **Weltachse invertieren** (unter **Kamera & Szene**) zeigt es
+ungespiegelt. Das Level bleibt auf deinem Rechner.
+
+Wenn ein neues Release erscheint, sagt das Werkzeug es beim Start und bietet an, sich
+selbst zu aktualisieren.
 
 Jeder Spiel-Leser ist ein eigenes kleines Projekt mit eigener Lizenzdatei, eigenen
 Releases und eigenem Issue-Tracker. So lässt er sich für sich allein installieren,
