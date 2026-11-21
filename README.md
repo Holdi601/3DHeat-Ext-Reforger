@@ -85,6 +85,10 @@ and a line per world. Without pip, the tool finds GameFiles in
 | `world <world> [-o FILE] [options]` | one world as a `.glb` | [worlds and world](https://holdi601.github.io/3DHeat-Ext-Reforger/level-arma-reforger.html) |
 | `catalog [-o FILE] [--game FOLDER]` | every vehicle and weapon prefab of the install (name, class, faction, model, the real vehicle) as `catalog.json`, by default `$HEAT3D_LEVELS/arma-reforger/catalog.json`; for the viewer's unit names and order | - |
 | `models [-o LEVELS] [--game FOLDER] [--only ID...] [--force]` | every catalogued vehicle's model as a local model pack in `<levels>/model-packs/arma-reforger/` (a `.glb` per vehicle at three levels of detail: hull, wheels, turret, gun, rotor as the viewer moves them, and the radio antennas as `aerial`, left out of the vehicle's size; hit zones and armour plates by thickness under `dm`); prefabs with the same models share one file. The pack stays on your machine | - |
+| `status [--json]` | every map of the install (Everon `Eden`, Arland, Kolguyev `Cain`, newer ones) as `new`, `changed`, `outdated` or `current` against the levels already written (`manifest.json` in the levels folder); `--all-worlds` also lists the editor and test worlds | - |
+| `all [--force]` | every map `status` does not call current: `<World>.glb`, `<World>.layouts.json` and its manifest entry | - |
+| `extract [ids] [--new] [--changed] [--outdated] [--progress-json]` | the same for chosen maps, one JSON line per map: what the 3DHeat extractors manager runs | - |
+| `layouts <world>` | the map's named places, and each scenario's bases, relays, supply caches and spawns, as `<World>.layouts.json` | - |
 | `identify <file>` | whether a file is an Enfusion archive, terrain, world file or texture | [identify](https://holdi601.github.io/3DHeat-Ext-Reforger/identify.html) |
 
 `enfusion-worlds` and `enfusion-world` are the same two verbs under the names

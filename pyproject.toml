@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "heat3d-ext-reforger"
-version = "0.3.2"
+version = "0.4.0"
 description = "Arma Reforger worlds (Enfusion) from your own install into 3DHeat levels: terrain in its own colours, the sea, the placed models as boxes"
 readme = "README.md"
 license = { file = "LICENSE" }

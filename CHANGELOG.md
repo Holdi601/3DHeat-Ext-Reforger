@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.0
+
+- `status [--json]`: every map of the install (Everon `Eden`, Arland, Kolguyev `Cain`, and any newer one) as `new`,
+  `changed` (an update changed the world's files), `outdated` (written by an older level format), `current` or no
+  longer installed, against `<levels>/arma-reforger/manifest.json`. Editor, test and showcase worlds only with
+  `--all-worlds`. `--json` answers in the shape the 3DHeat extractors manager reads.
+- `all` and `extract [ids] [--new] [--changed] [--outdated] [--progress-json]`: the maps not yet current, each as
+  `<World>.glb` and `<World>.layouts.json`, recorded in the manifest (id, game build, the world's fingerprints,
+  extractor and level-format version, files). Maps over 8 km at 4 m ground spacing, the rest at 2 m.
+- `layouts <world>`: the map's named places (towns by size, airports, military bases, hills, bays, lakes, named by
+  their English map labels) and one layout per scenario world built on it (Conflict, Game Master, combat ops,
+  capture and hold): military bases, airbases, radio relays, supply caches, capture areas and spawn points with
+  their faction.
+- Installs are also found in the Linux, Flatpak and Snap Steam libraries (Proton).
+
 ## 0.3.2
 
 - `models`: thin posts and masts up to 5 cm about their axis (was 3 cm) are found by their shape as aerials too,

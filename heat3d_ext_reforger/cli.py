@@ -125,6 +125,9 @@ def parser() -> argparse.ArgumentParser:
     from . import gear
 
     gear.add_verbs(sub)
+    from . import levels
+
+    levels.add_verbs(sub)
     p = sub.add_parser("identify", help="say whether a file is an Enfusion archive, terrain, world file or texture")
     p.add_argument("path", type=Path)
     return ap
@@ -168,7 +171,7 @@ def main(argv: list[str] | None = None) -> int:
         update.startup("heat3d_ext_reforger")
     except Exception:  # an update check never stops an export
         pass
-    if args.verb in ("catalog", "models"):
+    if args.verb in ("catalog", "models", "status", "all", "layouts", "extract"):
         return args.run(args)
     from . import enfusionworld
 

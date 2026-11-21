@@ -161,13 +161,35 @@ class FileSystem:
         return sorted(self.names[p] for p in self.files if contains in p and p.endswith(suffix))
 
 
+def _linux_libraries() -> list[Path]:
+    """On Linux, the native, Flatpak and Snap Steam folders (where Proton installs live) and their libraries."""
+    import re
+    import sys
+
+    if sys.platform == "win32":
+        return []
+    home = Path.home()
+    roots = [home / ".steam" / "steam", home / ".local" / "share" / "Steam",
+             home / ".var" / "app" / "com.valvesoftware.Steam" / ".local" / "share" / "Steam",
+             home / "snap" / "steam" / "common" / ".local" / "share" / "Steam"]
+    out = []
+    for root in roots:
+        out.append(root)
+        try:
+            text = (root / "steamapps" / "libraryfolders.vdf").read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        out += [Path(m.group(1)) for m in re.finditer(r'"path"\s+"([^"]+)"', text)]
+    return out
+
+
 def find_install(where: str | Path | None = None) -> Path | None:
     """The game's folder: given, or in any Steam library."""
     candidates = [Path(where)] if where else []
     if not where:
         from heat3d_gamefiles.steam import STEAM_DEFAULTS, steam_libraries
 
-        for library in [Path(p) for p in STEAM_DEFAULTS] + [Path(p) for p in steam_libraries()]:
+        for library in [Path(p) for p in STEAM_DEFAULTS] + [Path(p) for p in steam_libraries()] + _linux_libraries():
             candidates.append(library / "steamapps" / "common" / STEAM_FOLDER)
     for folder in candidates:
         if (folder / "addons").is_dir():
