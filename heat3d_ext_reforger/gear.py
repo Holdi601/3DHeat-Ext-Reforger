@@ -95,7 +95,7 @@ def cmd_models(args) -> int:
     from .enfusion import find_install
     from .modelpack import Pack
     from .prefab import Chain
-    from .vehicles import Builder, geometry_key, merged_parts
+    from .vehicles import Builder, geometry_key, merged_parts, size_points
 
     install = find_install(args.game)
     if install is None:
@@ -133,7 +133,7 @@ def cmd_models(args) -> int:
                 continue
             pivots = {k: [round(float(x), 4) for x in v] for k, v in b.pivots.items() if not k.startswith("_")}
             e = pack.add(it["id"], merged_parts(b), it["domain"], it["class"], key=it["key"], pivots=pivots,
-                         dm=b.dm, fingerprint=fp,
+                         dm=b.dm, fingerprint=fp, size_points=size_points(b),
                          extra={"name": it["name"], "nation": it.get("nation", ""), "prefab": it["prefab"]})
             shared[key] = it["id"]
             done += 1

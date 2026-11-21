@@ -8,7 +8,7 @@ import pytest
 
 from heat3d_ext_reforger.enfusion import EnfusionError
 from heat3d_ext_reforger.prefab import Chain, parse, ref
-from heat3d_ext_reforger.vehicles import Builder, angles, merged_parts
+from heat3d_ext_reforger.vehicles import Builder, angles, merged_parts, size_points
 from heat3d_ext_reforger.xob import Xob, colliders
 
 
@@ -208,3 +208,75 @@ def test_vehicle_parts_pivots_and_hit_zones():
 
     v, f = parts["hull"]
     assert np.sign(volume(v, f)) == np.sign(volume([[-1, 0, -2], [1, 0, -2], [0, 2, 0], [0, 0, 2]], TET))
+
+
+CAR = """Vehicle {
+ components {
+  MeshObject "{01}" {
+   Object "{0000000000000009}Assets/Car.xob"
+  }
+ }
+}
+"""
+
+
+def _tets(*tets):
+    """Several tetrahedra as one mesh: their faces and corners."""
+    faces = [[a + 4 * k for a in tri] for k in range(len(tets)) for tri in TET]
+    return faces, [p for t in tets for p in t]
+
+
+def _car(nodes, tets, node_of_vertex=None):
+    faces, pos = _tets(*tets)
+    fs = FS({"Prefabs/Car.et": CAR.encode(), "Assets/Car.xob": make_xob(nodes, faces, pos, node_of_vertex)})
+    return Builder(fs).build("Prefabs/Car.et")
+
+
+BODY = [[-1, 0, -2], [1, 0, -2], [0, 1, 0], [0, 0, 2]]
+
+
+def test_whip_aerial_by_shape_left_out_of_the_size():
+    whip = [[0.5, 1, 0], [0.52, 1, 0], [0.5, 1, 0.02], [0.51, 2.5, 0.01]]
+    tip = [[0.505, 2.51, 0.005], [0.52, 2.51, 0.005], [0.505, 2.51, 0.02], [0.51, 2.53, 0.01]]
+    handle = [[-0.8, 0.1, 1], [-0.78, 0.1, 1], [-0.8, 0.1, 1.02], [-0.79, 0.8, 1.01]]  # thin, upright, not on top
+    b = _car([("Scene_Root", -1, (0, 0, 0))], [BODY, whip, tip, handle])
+    parts = merged_parts(b)
+    assert set(parts) == {"hull", "aerial"}
+    assert len(parts["aerial"][1]) == 8 and len(parts["hull"][1]) == 8
+    assert np.isclose(parts["aerial"][0][np.unique(parts["aerial"][1])][:, 1].max(), 2.53)
+    assert np.isclose(size_points(b)[:, 1].max(), 1.0)
+
+
+def test_named_aerial_stays_on_its_turret_and_control_wheels_are_not_gear():
+    nodes = [("Scene_Root", -1, (0, 0, 0)), ("v_turret", 0, (0, 1, 0)), ("v_antenna_01", 1, (0, 0, 0)),
+             ("v_elevation_wheel", 0, (0, 0, 0)), ("v_steering_wheel", 0, (0, 0, 0)), ("v_wheel_L01", 0, (0, 0, 0))]
+    turret = [[-0.5, 1, -0.5], [0.5, 1, -0.5], [0, 1.5, 0], [0, 1, 0.5]]
+    antenna = [[0.3, 1.2, 0], [0.4, 1.2, 0], [0.3, 1.2, 0.1], [0.35, 3, 0.05]]
+    sight = [[0, 0.8, 1], [0.1, 0.8, 1], [0, 0.9, 1], [0, 0.8, 1.1]]
+    steering = [[0.3, 0.6, 1], [0.5, 0.6, 1], [0.3, 0.8, 1], [0.3, 0.6, 1.2]]
+    wheel = [[1, 0, 1], [1.1, 0, 1], [1, 0.4, 1], [1, 0, 1.4]]
+    b = _car(nodes, [BODY, turret, antenna, sight, steering, wheel], [n for n in (0, 1, 2, 3, 4, 5) for _ in range(4)])
+    parts = merged_parts(b)
+    assert set(parts) == {"hull", "turret", "gear"}
+    assert len(parts["gear"][1]) == 4 and len(parts["hull"][1]) == 12
+    assert len(parts["turret"][1]) == 8 and len(b.unsized["turret"][0][1]) == 4
+    assert np.isclose(size_points(b)[:, 1].max(), 1.5)
+
+
+def test_pack_writes_the_aerial_and_sizes_without_it(tmp_path):
+    import json
+
+    from heat3d_ext_reforger.modelpack import Pack
+
+    pack = Pack(tmp_path, "test-game", "1", "test")
+    faces = np.array(TET)
+    hull = (np.array(BODY, float), faces)
+    aerial = (np.array([[0, 1, 0], [0.02, 1, 0], [0, 1, 0.02], [0.01, 3, 0.01]], float), faces)
+    e = pack.add("car", {"hull": hull, "aerial": aerial}, "ground", "car")
+    assert e["parts"] == ["aerial", "hull"] and e["height"] == 1.0 and e["box"][4] == 1.0
+    data = (tmp_path / e["file"]).read_bytes()
+    size = int.from_bytes(data[12:16], "little")
+    gltf = json.loads(data[20:20 + size])
+    names = [n["name"] for n in gltf["nodes"]]
+    assert names.count("aerial") == 3 and "extras" not in gltf["nodes"][names.index("aerial")]
+    assert gltf["nodes"][0]["extras"]["height"] == 1.0

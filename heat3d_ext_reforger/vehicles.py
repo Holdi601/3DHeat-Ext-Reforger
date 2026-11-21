@@ -7,10 +7,15 @@ cargo boxes and glass, each hung on its node (`PivotID`) with the slot's offset 
 hang on its gun node. Cockpit panels, seats, lights, characters and items are left out, and so are the interior
 and proxy surfaces of each model (materials named `interior`, `decal`, `m_PRT_`, `WaterErase`...).
 
-Parts: what follows a wheel or track node or sits in a wheel slot is `gear`; the turret slot's model (or, without
-one, what follows the model's own turret node) is `turret`, pivoting on its turret node; what follows a gun or
-barrel node under it, and the weapons, are `gun`, pivoting on the gun node; a helicopter's main rotor is `rotor`.
-The rest is the `hull`.
+Parts: what follows a wheel or track node or sits in a wheel slot is `gear` (steering wheels, spare tyres, dials and
+the wheels of sights are not running gear); the turret slot's model (or, without one, what follows the model's own
+turret node) is `turret`, pivoting on its turret node; what follows a gun or barrel node under it, and the weapons,
+are `gun`, pivoting on the gun node; a helicopter's main rotor is `rotor`. The rest is the `hull`.
+
+Aerials: radio antennas, whips and masts would make a vehicle look far taller than it is, so they are told apart -
+by name (a node or material called antenna, aerial or whip) or by shape (a thin, long, mostly upright piece, with the
+small bits along it, that reaches above everything else). On the hull they are the part `aerial`; on a turret or
+gun they stay with it (they turn with it). Either way they are left out of the vehicle's size.
 
 Hit regions (`dm`): each hit zone of the prefabs (`ColliderNames`) as the surface of its colliders, and the
 armour of the hull's triangle-mesh colliders split by game material, as `armour_<n>mm` plates with their
@@ -40,6 +45,18 @@ SKIP_SLOT = re.compile(r"/Lights/|/Dst/|Character|/Items/|Magazine|Emissive|Prob
                        r"/Ammo/|Grenade|Launcher|Cockpit|Pedals|Shifter|SteeringWheel|/Seats/|seats|TieDown|antenna|"
                        r"periscope|Coordinator|commander|CoatOfArms|decal", re.I)
 GEAR_NODE = re.compile(r"wheel|tire|tyre|track|sprocket|idler|roadwheel", re.I)
+#: Wheels that are not running gear: steering and control wheels, dials, spare tyres.
+NOT_GEAR_NODE = re.compile(r"steer|dashboard|elevation|intensity|reticle|pressure|spare|hand_?wheel", re.I)
+#: Radio antennas by node or material name.
+AERIAL_NAME = re.compile(r"antenn|aerial|whip", re.I)
+#: An aerial by its shape: a piece at most AERIAL_RADIUS m about its axis, AERIAL_LENGTH m long or longer, its axis
+#: at least AERIAL_UPRIGHT (the cosine to the vertical) upright; with the bits up to AERIAL_BIT m across within
+#: AERIAL_NEAR m of it (tips, joints), when it reaches higher than all the rest.
+AERIAL_RADIUS = 0.03
+AERIAL_LENGTH = 0.3
+AERIAL_UPRIGHT = 0.5
+AERIAL_BIT = 0.15
+AERIAL_NEAR = 0.06
 TURRET_NODE = re.compile(r"^v_turret(_0?1)?$|^v_turret_?base$|^turret$", re.I)
 GUN_NODE = re.compile(r"^v_gun(_0?1)?$|^v_cannon|^v_barrel|^gun$|^v_weapon(_0?1)?$", re.I)
 TAIL_NODE = re.compile(r"tail", re.I)
@@ -77,6 +94,8 @@ def frame(p: np.ndarray) -> np.ndarray:
 @dataclass
 class Built:
     parts: dict = field(default_factory=dict)
+    #: Triangles drawn with a part but left out of the vehicle's size: aerials on a turret or gun.
+    unsized: dict = field(default_factory=dict)
     pivots: dict = field(default_factory=dict)
     dm: list = field(default_factory=list)
     notes: list = field(default_factory=list)
@@ -85,6 +104,15 @@ class Built:
     def add(self, part: str, v: np.ndarray, f: np.ndarray) -> None:
         if len(f):
             self.parts.setdefault(part, []).append((v, f))
+
+    def add_aerial(self, part: str, v: np.ndarray, f: np.ndarray) -> None:
+        """An aerial on `part`: the hull's become the part `aerial`, a turret's or gun's stay with it, unsized."""
+        if not len(f):
+            return
+        if part in ("turret", "gun"):
+            self.unsized.setdefault(part, []).append((v, f))
+        else:
+            self.add("aerial", v, f)
 
     def add_dm(self, name: str, v: np.ndarray, f: np.ndarray, extras: dict) -> None:
         """A hit region; one of the same name (the hull's and the turret's armour of one thickness) joins it."""
@@ -146,6 +174,7 @@ class Builder:
         for s in slots:
             self._slot(out, x, np.eye(4), s, "turret" if s is turret_slot else _role(s.prefab, "hull"))
         self._zones(out, chain, model, np.eye(4))
+        shape_aerials(out)
         return out
 
     def _pivot(self, x: Xob, at: np.ndarray, s: Slot) -> np.ndarray:
@@ -191,7 +220,7 @@ class Builder:
             if own_turret:
                 gun = next((i for i, n in enumerate(names) if GUN_NODE.search(n) and self._under(x, i, turret)), -1)
             for i, n in enumerate(names):
-                if GEAR_NODE.search(n) or self._under_match(x, i, GEAR_NODE):
+                if self._under_where(x, i, _gear_node):
                     cls[i] = "gear"
                 elif main and self._under_match(x, i, ROTOR_NODE) and not self._under_match(x, i, TAIL_NODE):
                     cls[i] = "rotor"
@@ -210,6 +239,7 @@ class Builder:
                     out.pivots["rotor"] = frame(place(m, x.nodes[rotor].world[:3, 3]))
         elif role == "rotor" and "rotor" not in out.pivots:
             out.pivots["rotor"] = frame(m[:3, 3])
+        aerial = np.array([self._under_match(x, i, AERIAL_NAME) for i in range(len(names))], dtype=bool)
         most = MAIN_TRIANGLES if main else GUN_TRIANGLES if role == "gun" else PART_TRIANGLES
         for mesh in self.meshes(model, most):
             p = frame(place(m, mesh.positions))
@@ -217,8 +247,17 @@ class Builder:
             node = np.minimum(mesh.node, len(cls) - 1) if len(cls) else np.zeros(len(p), np.int64)
             vcls = cls[node] if len(cls) else np.array([role] * len(p), dtype=object)
             fcls = vcls[f[:, 0]]
+            if AERIAL_NAME.search(mesh.material):
+                fa = np.ones(len(f), dtype=bool)
+            elif len(aerial):
+                fa = aerial[node][f[:, 0]]
+            else:
+                fa = np.zeros(len(f), dtype=bool)
+            fa &= (fcls != "gear") & (fcls != "rotor")
             for part in set(fcls.tolist()):
-                out.add(part, p, f[fcls == part])
+                sel = fcls == part
+                out.add(part, p, f[sel & ~fa])
+                out.add_aerial(part, p, f[sel & fa])
 
     @staticmethod
     def _under(x: Xob, i: int, root: int) -> bool:
@@ -232,8 +271,13 @@ class Builder:
 
     @staticmethod
     def _under_match(x: Xob, i: int, rx: re.Pattern) -> bool:
+        return Builder._under_where(x, i, rx.search)
+
+    @staticmethod
+    def _under_where(x: Xob, i: int, test) -> bool:
+        """True when node `i` or one of its parents passes `test(name)`."""
         while i >= 0:
-            if rx.search(x.nodes[i].name):
+            if test(x.nodes[i].name):
                 return True
             i = x.nodes[i].parent
         return False
@@ -278,6 +322,87 @@ class Builder:
             out.add_dm(f"armour_{label}", v, f, ex)
 
 
+def _gear_node(name: str) -> bool:
+    return bool(GEAR_NODE.search(name)) and not NOT_GEAR_NODE.search(name)
+
+
+def _pieces(v: np.ndarray, f: np.ndarray) -> np.ndarray:
+    """The connected pieces of a triangle set: a piece number per triangle (vertices at one place join)."""
+    from scipy.sparse import coo_matrix
+    from scipy.sparse.csgraph import connected_components
+
+    q = np.round(np.asarray(v, np.float64) / 1e-4).astype(np.int64)
+    _, inv = np.unique(q, axis=0, return_inverse=True)
+    inv = inv.reshape(-1)
+    ff = inv[np.asarray(f, np.int64)]
+    n = int(inv.max()) + 1
+    g = coo_matrix((np.ones(ff.size, np.int8), (ff.reshape(-1), np.roll(ff, 1, 1).reshape(-1))), shape=(n, n))
+    _k, label = connected_components(g, directed=False)
+    return label[ff[:, 0]]
+
+
+def _to_segment(p: np.ndarray, a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """Each point's distance to the segment a-b."""
+    d = b - a
+    t = np.clip((p - a) @ d / max(float(d @ d), 1e-12), 0, 1)
+    return np.linalg.norm(p - (a + t[:, None] * d), axis=1)
+
+
+def shape_aerials(out: Built) -> None:
+    """Moves the whip aerials found by their shape (see AERIAL_*) out of the hull, turret and gun."""
+    pieces = []  # (part, item, triangles, points, low corner, high corner, axis segment or None)
+    for part in ("hull", "turret", "gun"):
+        for k, (v, f) in enumerate(out.parts.get(part, [])):
+            label = _pieces(v, f)
+            order = np.argsort(label, kind="stable")
+            for idx in np.split(order, np.flatnonzero(np.diff(label[order])) + 1):
+                p = v[np.unique(f[idx])]
+                lo, hi = p.min(0), p.max(0)
+                seg = None
+                if np.linalg.norm(hi - lo) >= AERIAL_LENGTH and len(p) >= 3:
+                    c = p.mean(0)
+                    q = p - c
+                    axis = np.linalg.eigh(q.T @ q)[1][:, -1]
+                    t = q @ axis
+                    r = float(np.linalg.norm(q - np.outer(t, axis), axis=1).max())
+                    if t.max() - t.min() >= AERIAL_LENGTH and r <= AERIAL_RADIUS and abs(axis[1]) >= AERIAL_UPRIGHT:
+                        seg = (c + t.min() * axis, c + t.max() * axis)
+                pieces.append((part, k, idx, p, lo, hi, seg))
+    groups = []
+    for w, whip in enumerate(pieces):
+        if whip[6] is None:
+            continue
+        group = {w}
+        for i, pc in enumerate(pieces):
+            if pc[6] is None and np.linalg.norm(pc[5] - pc[4]) <= AERIAL_BIT \
+                    and _to_segment(pc[3], *whip[6]).max() <= AERIAL_NEAR:
+                group.add(i)
+        groups.append(group)
+    if not groups:
+        return
+    grouped = set().union(*groups)
+    tops = [float(pc[5][1]) for i, pc in enumerate(pieces) if i not in grouped]
+    tops += [float(v[np.unique(f)][:, 1].max()) for part in ("gear", "rotor") for v, f in out.parts.get(part, [])]
+    top = max(tops) if tops else -np.inf
+    moved: dict = {}
+    for group in groups:
+        if max(float(pieces[i][5][1]) for i in group) > top + 0.02:
+            for i in group:
+                moved.setdefault(pieces[i][:2], set()).update(pieces[i][2].tolist())
+    for part in ("hull", "turret", "gun"):
+        keep = []
+        for k, (v, f) in enumerate(out.parts.get(part, [])):
+            sel = np.zeros(len(f), dtype=bool)
+            sel[list(moved.get((part, k), ()))] = True
+            if (~sel).any():
+                keep.append((v, f[~sel]))
+            out.add_aerial(part, v, f[sel])
+        if keep:
+            out.parts[part] = keep
+        else:
+            out.parts.pop(part, None)
+
+
 def _leaf(prefab: str) -> str:
     """A prefab's folder and file name (`Wheels/BTR70_wheel_left_01.et`): what its role is read from."""
     return "/".join(prefab.split("/")[-2:])
@@ -301,7 +426,18 @@ def _merge(vs: list, fs: list) -> tuple[np.ndarray, np.ndarray]:
 
 
 def merged_parts(b: Built) -> dict:
-    return {k: _merge([v for v, _ in items], [f for _, f in items]) for k, items in b.parts.items()}
+    """Each part as one triangle set, its unsized aerials included."""
+    out = {}
+    for k in sorted(set(b.parts) | set(b.unsized)):
+        items = b.parts.get(k, []) + b.unsized.get(k, [])
+        out[k] = _merge([v for v, _ in items], [f for _, f in items])
+    return out
+
+
+def size_points(b: Built) -> np.ndarray:
+    """The points the vehicle's size is measured over: every part's but the aerials'."""
+    pts = [v[np.unique(f)] for k, items in b.parts.items() if k != "aerial" for v, f in items if len(f)]
+    return np.concatenate(pts) if pts else np.zeros((0, 3))
 
 
 def fingerprint(fs, b: Built, prefab_texts: list[str]) -> str:
@@ -321,8 +457,8 @@ def fingerprint(fs, b: Built, prefab_texts: list[str]) -> str:
 def geometry_key(b: Built) -> str:
     """Two prefabs with the same models in the same places share one file."""
     h = hashlib.sha256()
-    for k in sorted(b.parts):
-        for v, f in b.parts[k]:
+    for k in sorted(set(b.parts) | set(b.unsized)):
+        for v, f in b.parts.get(k, []) + b.unsized.get(k, []):
             h.update(k.encode())
             h.update(np.round(np.asarray(v, np.float64).sum(0), 3).tobytes())
             h.update(str(len(f)).encode())

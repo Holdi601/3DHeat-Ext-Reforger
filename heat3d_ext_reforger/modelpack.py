@@ -6,9 +6,10 @@ units: {<unit id>: {file, name, names, displayName, kind, type, domain, key, ali
 width, height, tris}}}`; `name` is the real vehicle's name, the same in every game's pack) and one
 `.glb` per unit. A unit's file has a root node `unit` (extras: the index entry) with children `lod0`, `lod1`,
 `lod2` (full, coarse, far), each holding one mesh node per part: `hull`, `gear` (wheels and tracks), `turret`
-(extras {joint: "yaw", pivot}), `gun` (extras {joint: "pitch", pivot, parent}) and `rotor` (extras {joint: "spin",
-pivot}); and an optional child `dm` with one node per hit region, `dm:<name>`, extras {part, group}. Positions are
-float32 metres in the viewer's figure frame (x forward, y up, z right) about the unit's own origin.
+(extras {joint: "yaw", pivot}), `gun` (extras {joint: "pitch", pivot, parent}), `rotor` (extras {joint: "spin",
+pivot}) and `aerial` (radio antennas on the hull, drawn like it); and an optional child `dm` with one node per hit
+region, `dm:<name>`, extras {part, group}. Positions are float32 metres in the viewer's figure frame (x forward, y
+up, z right) about the unit's own origin. `box`, `length`, `width` and `height` leave the aerials out.
 
 Catalogue: `catalog.json` (`{format: "3dheat-catalog", version: 1, game, gameBuild, source, items: [{id, kind,
 name, class, nation, key, model, numbers}]}`). `key` is the real-world name of the vehicle or weapon (like
@@ -29,7 +30,7 @@ import numpy as np
 
 PACK_FORMAT = "3dheat-model-pack"
 CATALOG_FORMAT = "3dheat-catalog"
-PARTS = ("hull", "gear", "turret", "gun", "rotor")
+PARTS = ("hull", "gear", "turret", "gun", "rotor", "aerial")
 #: Triangles per level of detail (full, coarse, far), by domain.
 BUDGET = {"person": (8000, 2000, 500), "ground": (14000, 2600, 700), "air": (16000, 3000, 800),
           "heli": (16000, 3000, 800), "sea": (30000, 6000, 1500), "item": (3000, 800, 200)}
@@ -79,7 +80,7 @@ def simplify(parts: dict, budget: int) -> dict:
         return parts
     import fast_simplification
 
-    weight = {"gun": 3.0, "turret": 1.5, "rotor": 2.0}
+    weight = {"gun": 3.0, "turret": 1.5, "rotor": 2.0, "aerial": 2.0}
     ratio = budget / total
     keep = {n: min(len(f), int(len(f) * min(1.0, ratio * weight[n]))) for n, (_, f) in parts.items() if n in weight}
     rest = sum(len(f) for n, (_, f) in parts.items() if n not in weight)
@@ -239,15 +240,22 @@ class Pack:
 
     def add(self, unit: str, parts: dict, domain: str, kind: str, key: str = "", pivots: dict | None = None,
             aliases: list | None = None, dm: list | None = None, fingerprint: str = "", extra: dict | None = None,
-            anchor: str | None = None) -> dict:
-        """Simplifies `parts` ({part: (verts, faces)}, figure frame) to three levels and writes the unit."""
+            anchor: str | None = None, size_points: np.ndarray | None = None) -> dict:
+        """Simplifies `parts` ({part: (verts, faces)}, figure frame) to three levels and writes the unit.
+
+        The unit's size (`box`, `length`, `width`, `height`) is that of `size_points` when given, else of every part
+        but the aerials."""
         pivots = pivots or {}
         parts = {p: weld(*parts[p]) for p in parts if len(parts[p][1])}
         parts = {p: x for p, x in parts.items() if len(x[1])}
         if not parts:
             raise ValueError("no geometry")
         lods = lods_of(parts, domain)
-        allv = np.concatenate([v for v, _ in lods[0].values()])
+        if size_points is not None and len(size_points):
+            allv = np.asarray(size_points, np.float64)
+        else:
+            sized = [v for k, (v, _) in lods[0].items() if k != "aerial"]
+            allv = np.concatenate(sized or [v for v, _ in lods[0].values()])
         lo, hi = allv.min(0), allv.max(0)
         fname = re.sub(r"[^a-z0-9_.-]", "_", unit.lower()) + ".glb"
         meta = {

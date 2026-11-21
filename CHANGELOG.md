@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.1
+
+- `models`: radio antennas, whips and masts no longer make vehicles look taller than they are. They are found by
+  name (a node or material called antenna, aerial or whip) or by shape (a thin, long, mostly upright piece, with the
+  small bits along it, reaching above everything else) and written as their own part `aerial` (on a turret they
+  stay with the turret). The size in the pack (`box`, `length`, `width`, `height`) leaves them out.
+- `models`: only running gear is `gear`. Steering wheels, dials, spare tyres and the adjusting wheels of a gun sight
+  were taken for wheels; a helicopter with a pilot's sight had a stray `gear` part.
+- The size in the pack is measured on the full-detail model.
+
 ## 0.3.0
 
 - `models`: every catalogued vehicle's model from your own install as a local model pack
