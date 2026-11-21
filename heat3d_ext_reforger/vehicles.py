@@ -52,7 +52,7 @@ AERIAL_NAME = re.compile(r"antenn|aerial|whip", re.I)
 #: An aerial by its shape: a piece at most AERIAL_RADIUS m about its axis, AERIAL_LENGTH m long or longer, its axis
 #: at least AERIAL_UPRIGHT (the cosine to the vertical) upright; with the bits up to AERIAL_BIT m across within
 #: AERIAL_NEAR m of it (tips, joints), when it reaches higher than all the rest.
-AERIAL_RADIUS = 0.03
+AERIAL_RADIUS = 0.05
 AERIAL_LENGTH = 0.3
 AERIAL_UPRIGHT = 0.5
 AERIAL_BIT = 0.15

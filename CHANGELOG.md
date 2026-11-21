@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.2
+
+- `models`: thin posts and masts up to 5 cm about their axis (was 3 cm) are found by their shape as aerials too,
+  drawn and left out of the vehicle's size: the LAV-25 is 2.71 m tall in the pack, not 3.02 m.
+
 ## 0.3.1
 
 - `models`: radio antennas, whips and masts no longer make vehicles look taller than they are. They are found by
