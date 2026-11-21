@@ -19,7 +19,46 @@ viewer.
 (*Enfusion* is the engine Arma Reforger is made with; a *world* is what the
 game calls a map.)
 
-## Quick start
+## The standalone program (no Python needed)
+
+Each [release](https://github.com/Holdi601/3DHeat-Ext-Reforger/releases/latest)
+has a ready-to-run program for Windows
+(`heat3d-reforger-<version>-windows-x64.zip`) and Linux
+(`heat3d-reforger-<version>-linux-x64.tar.gz`, for Arma Reforger installed by
+Steam under Proton, Steam Deck included), with a `SHA256SUMS` file to check
+the download. Unpack it anywhere and start `heat3d-reforger`.
+
+Started without arguments it opens a window that:
+
+- finds your Arma Reforger install in any Steam library (Windows, Linux
+  native and flatpak, Steam Deck), or lets you choose its folder;
+- says what is missing: the game, free disk space;
+- lists the maps (Everon, Arland, Kolguyev and any newer one) as new, changed
+  by a game update, extracted by an older version, or up to date, and
+  extracts the ones you pick, one at a time, into the 3DHeat levels folder
+  (`HEAT3D_LEVELS`, by default `%LOCALAPPDATA%\3DHeat\levels` on Windows and
+  `~/.local/share/3dheat/levels` on Linux), under `arma-reforger/`, where the
+  viewer finds them: each map's `.glb` and its `.layouts.json`;
+- checks for updates and asks before installing one, unless you tick
+  *Update automatically*.
+
+A map an update or a DLC adds or changes is found the next time: each
+extracted map is recorded in `<levels>/arma-reforger/.heat3d-extract.json`
+with the version that extracted it, the game's build and the size and SHA-256
+of the archives its files are in (the tool's own `manifest.json` beside it is
+kept as before).
+
+The same program runs every command below:
+`heat3d-reforger heat3d-reforger-maps worlds`,
+`heat3d-reforger heat3d-reforger-maps world <world> -o <file>`. For scripts:
+`heat3d-reforger status --json` reports the maps' state,
+`heat3d-reforger extract --new` extracts only the new ones and
+`heat3d-reforger --check --json` says what is found and missing. The 3DHeat
+app's Extractors panel installs, updates and starts it for you.
+`python -m heat3d_ext_reforger.standalone_spec` opens the same window from the
+source.
+
+## Quick start (Python)
 
 You need Windows, Python 3.10 or later ("Add python.exe to PATH" ticked in its
 installer), Arma Reforger installed through Steam (found by itself) and about
@@ -48,8 +87,10 @@ then **Background / level -> 3D model...** and pick the file
 frame is left-handed: **Invert world axis** (under **Camera & scene**) shows it
 unmirrored. The level stays on your machine.
 
-When a new release is out, the tool says so when it starts and offers to
-update itself.
+When a new release is out, the tool says so when it starts, shows its notes
+and asks: update now, later, or skip this version. It updates without asking
+only when you chose that: `--auto-update` (this run), the standalone window's
+*Update automatically*, or `HEAT3D_AUTO_UPDATE=1`.
 
 Each game reader is its own small project with its own licence file, releases
 and issue tracker, so it can be installed, updated, maintained - or withdrawn

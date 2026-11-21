@@ -1,0 +1,8 @@
+{
+  "spec": "heat3d_ext_reforger.standalone_spec",
+  "collect_submodules": ["numpy", "PIL", "lz4", "heat3d_gamefiles"],
+  "platforms": {
+    "windows-x64": {"build": true, "tested": true, "note": "Steam install; CI builds and smoke-runs, maps checked on a real install"},
+    "linux-x64": {"build": true, "tested": false, "note": "Steam/Proton installs found (native, flatpak, Steam Deck); CI builds and smoke-runs"}
+  }
+}

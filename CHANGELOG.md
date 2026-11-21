@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.5.0
+
+- A standalone program for Windows and Linux (no Python needed), built by CI with a `SHA256SUMS` file. Without
+  arguments it opens a window: what is found and what is missing (install, disk space), the levels folder, the
+  maps as new / changed by a game update / extracted by an older version / up to date, and extraction of the
+  picked ones one at a time into `<levels>/arma-reforger/` (the level and its layouts), and updates.
+- Each map it extracts is also recorded in `<levels>/arma-reforger/.heat3d-extract.json` (extractor version, game
+  build, size and SHA-256 of the archives its files are in), which its `status --json` and
+  `extract --new` / `--changed` / `--outdated` / `<map>...` / `--progress-json` read; `manifest.json` and the
+  tool's own `status`, `all` and `extract` stay as they were.
+- Updates ask first (update now / later / skip this version) unless automatic updates were chosen
+  (`--auto-update`, the window's checkbox, or `HEAT3D_AUTO_UPDATE=1`).
+- The install is also found in every Steam library Steam's own settings list on Windows.
+
 ## 0.4.0
 
 - `status [--json]`: every map of the install (Everon `Eden`, Arland, Kolguyev `Cain`, and any newer one) as `new`,

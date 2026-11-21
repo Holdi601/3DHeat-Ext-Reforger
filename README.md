@@ -20,7 +20,22 @@ and issue tracker, so it can be installed, updated, maintained - or withdrawn
 on a rights holder's request - on its own, without affecting the viewer or the
 other tools. The levels it writes stay on your machine.
 
-## Quick start for new users
+## The standalone program
+
+No Python needed: download the file for your system from the
+[latest release](https://github.com/Holdi601/3DHeat-Ext-Reforger/releases/latest)
+(`heat3d-reforger-<version>-windows-x64.zip` for Windows,
+`heat3d-reforger-<version>-linux-x64.tar.gz` for Arma Reforger under Proton on
+Linux and Steam Deck), check it against `SHA256SUMS`, unpack it and start
+`heat3d-reforger`. Its window finds your Arma Reforger install, says what is
+missing, lists the maps that are new or changed since the last extraction and
+extracts the ones you pick into the 3DHeat levels folder, and asks before it
+updates itself. `heat3d-reforger --help` lists its commands (every command
+below runs through it too). The 3DHeat app's Extractors panel can install and
+update it for you. See
+[The standalone program](https://holdi601.github.io/3DHeat-Ext-Reforger/#the-standalone-program-no-python-needed).
+
+## Quick start for new users (Python)
 
 You need: Windows, [Python](https://www.python.org/downloads/) 3.10 or later
 ("Add python.exe to PATH" ticked in its installer), Arma Reforger installed
@@ -54,8 +69,11 @@ world like Arland, more for the large ones. No Git is needed.
    is left-handed: **Invert world axis** (under **Camera & scene**) shows it
    unmirrored.
 
-When a new release is out, the tool says so when it starts and offers to
-update itself (`python -m heat3d_ext_reforger.update` does the same).
+When a new release is out, the tool says so when it starts, shows its notes
+and asks: update now, later, or skip this version. It updates without asking
+only when you chose that: `--auto-update` (this run), the standalone window's
+*Update automatically*, or `HEAT3D_AUTO_UPDATE=1`. `python -m heat3d_ext_reforger.update`
+updates on request; `HEAT3D_NO_UPDATE=1` switches the check off.
 
 ## Install from a checkout
 
@@ -87,7 +105,7 @@ and a line per world. Without pip, the tool finds GameFiles in
 | `models [-o LEVELS] [--game FOLDER] [--only ID...] [--force]` | every catalogued vehicle's model as a local model pack in `<levels>/model-packs/arma-reforger/` (a `.glb` per vehicle at three levels of detail: hull, wheels, turret, gun, rotor as the viewer moves them, and the radio antennas as `aerial`, left out of the vehicle's size; hit zones and armour plates by thickness under `dm`); prefabs with the same models share one file. The pack stays on your machine | - |
 | `status [--json]` | every map of the install (Everon `Eden`, Arland, Kolguyev `Cain`, newer ones) as `new`, `changed`, `outdated` or `current` against the levels already written (`manifest.json` in the levels folder); `--all-worlds` also lists the editor and test worlds | - |
 | `all [--force]` | every map `status` does not call current: `<World>.glb`, `<World>.layouts.json` and its manifest entry | - |
-| `extract [ids] [--new] [--changed] [--outdated] [--progress-json]` | the same for chosen maps, one JSON line per map: what the 3DHeat extractors manager runs | - |
+| `extract [ids] [--new] [--changed] [--outdated] [--progress-json]` | the same for chosen maps, one JSON line per map (the standalone program's own `status` and `extract` work the same way from `.heat3d-extract.json`) | - |
 | `layouts <world>` | the map's named places, and each scenario's bases, relays, supply caches and spawns, as `<World>.layouts.json` | - |
 | `identify <file>` | whether a file is an Enfusion archive, terrain, world file or texture | [identify](https://holdi601.github.io/3DHeat-Ext-Reforger/identify.html) |
 

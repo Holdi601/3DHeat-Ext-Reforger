@@ -189,6 +189,10 @@ def find_install(where: str | Path | None = None) -> Path | None:
     if not where:
         from heat3d_gamefiles.steam import STEAM_DEFAULTS, steam_libraries
 
+        from .app import paths
+
+        # Every Steam library on any system (registry, native, flatpak, Steam Deck), then the older guesses.
+        candidates += paths.steam_game_dirs(STEAM_FOLDER)
         for library in [Path(p) for p in STEAM_DEFAULTS] + [Path(p) for p in steam_libraries()] + _linux_libraries():
             candidates.append(library / "steamapps" / "common" / STEAM_FOLDER)
     for folder in candidates:
