@@ -83,6 +83,7 @@ and a line per world. Without pip, the tool finds GameFiles in
 |---|---|---|
 | `worlds [--install FOLDER]` | where the game is, and every world with a terrain | [worlds and world](https://holdi601.github.io/3DHeat-Ext-Reforger/level-arma-reforger.html) |
 | `world <world> [-o FILE] [options]` | one world as a `.glb` | [worlds and world](https://holdi601.github.io/3DHeat-Ext-Reforger/level-arma-reforger.html) |
+| `catalog [-o FILE] [--game FOLDER]` | every vehicle and weapon prefab of the install (name, class, faction, model, the real vehicle) as `catalog.json`, by default `$HEAT3D_LEVELS/arma-reforger/catalog.json`; for the viewer's unit names and order | - |
 | `identify <file>` | whether a file is an Enfusion archive, terrain, world file or texture | [identify](https://holdi601.github.io/3DHeat-Ext-Reforger/identify.html) |
 
 `enfusion-worlds` and `enfusion-world` are the same two verbs under the names

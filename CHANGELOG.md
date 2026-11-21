@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+- `catalog`: every vehicle and weapon prefab of your install as `catalog.json`: each vehicle's name, class,
+  faction (followed up its parent prefabs), model and the real vehicle it stands for; each weapon's class. The
+  viewer names Arma Reforger units by it and draws them with another game's local model of the same vehicle.
+
 ## 0.1.0
 
 - First version, moved out of 3DHeat GameFiles with its history (GameFiles'

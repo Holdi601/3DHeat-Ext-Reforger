@@ -122,6 +122,9 @@ def parser() -> argparse.ArgumentParser:
     enfusionworld.add_verbs(declared)
     for name, (old, text) in VERBS.items():
         sub.add_parser(name, aliases=[old], help=text, parents=[declared.choices[old]], add_help=False)
+    from . import gear
+
+    gear.add_verbs(sub)
     p = sub.add_parser("identify", help="say whether a file is an Enfusion archive, terrain, world file or texture")
     p.add_argument("path", type=Path)
     return ap
@@ -165,6 +168,8 @@ def main(argv: list[str] | None = None) -> int:
         update.startup("heat3d_ext_reforger")
     except Exception:  # an update check never stops an export
         pass
+    if args.verb == "catalog":
+        return args.run(args)
     from . import enfusionworld
 
     args.verb = VERBS.get(args.verb, (args.verb,))[0]
