@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0
+
+- `models`: every catalogued vehicle's model from your own install as a local model pack
+  (`<levels>/model-packs/arma-reforger/`), drawn by the 3DHeat viewer in place of its figures. Each vehicle is built
+  from its prefab: the body model and what its slots hold (wheels, turret, main rotor, doors, roofs, glass) on their
+  nodes, the turret's weapons on its gun node; parts hull, gear, turret (yaw pivot), gun (pitch pivot) and rotor.
+  The prefabs' hit zones (engine, fuel tanks, gearbox, battery...) and the hull's armour plates by thickness go under
+  `dm`. Variants with the same models share one file.
+- A reader for Enfusion models (`.xob`): node tree, levels of detail, triangle meshes with their materials and skin
+  bones, and the collision shapes (boxes, convex hulls, capsules, triangle meshes with their game materials).
+- `catalog` links each vehicle to its file in the model pack when there is one.
+
 ## 0.2.0
 
 - `catalog`: every vehicle and weapon prefab of your install as `catalog.json`: each vehicle's name, class,

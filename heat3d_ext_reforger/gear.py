@@ -78,6 +78,79 @@ def build(fs: FileSystem) -> list[dict]:
     return items
 
 
+def game_build(install: Path) -> str:
+    import time
+
+    exe = next((p for p in (install / "ArmaReforgerSteam.exe", install / "ArmaReforger.exe") if p.is_file()), None)
+    return time.strftime("%Y-%m-%d", time.gmtime(exe.stat().st_mtime)) if exe else "unknown"
+
+
+def cmd_models(args) -> int:
+    """Every catalogued vehicle as a local model pack: `<levels>/model-packs/arma-reforger/`."""
+    import hashlib
+    import os
+    import time
+
+    from . import __version__
+    from .enfusion import find_install
+    from .modelpack import Pack
+    from .prefab import Chain
+    from .vehicles import Builder, geometry_key, merged_parts
+
+    install = find_install(args.game)
+    if install is None:
+        print("no Arma Reforger install found: give it with --game <folder>", flush=True)
+        return 2
+    lv = args.out or os.environ.get("HEAT3D_LEVELS")
+    if not lv:
+        print("no output folder: pass --out <levels folder> or set HEAT3D_LEVELS", flush=True)
+        return 2
+    fs = FileSystem.of_install(install)
+    t0 = time.monotonic()
+    items = [it for it in build(fs) if it["kind"] == "vehicle"]
+    if args.only:
+        items = [it for it in items if any(o.lower() in it["id"].lower() for o in args.only)]
+    pack = Pack(Path(lv) / "model-packs" / "arma-reforger", "arma-reforger", game_build(install),
+                f"heat3d-reforger-maps {__version__}")
+    builder = Builder(fs)
+    print(f"arma-reforger: {len(items)} vehicles", flush=True)
+    shared: dict[str, str] = {}
+    done = same = failed = 0
+    for it in items:
+        chain = Chain(fs, it["prefab"])
+        fp = hashlib.sha256("\n".join(chain.texts).encode()).hexdigest()[:20]
+        if not args.force and pack.fresh(it["id"], fp):
+            same += 1
+            continue
+        try:
+            b = builder.build(it["prefab"])
+            key = geometry_key(b)
+            if key in shared and shared[key] in pack.index["units"]:
+                owner = pack.index["units"][shared[key]]
+                owner["aliases"] = sorted(set(owner.get("aliases", [])) | {it["id"]})
+                pack.index["units"].pop(it["id"], None)
+                same += 1
+                continue
+            pivots = {k: [round(float(x), 4) for x in v] for k, v in b.pivots.items() if not k.startswith("_")}
+            e = pack.add(it["id"], merged_parts(b), it["domain"], it["class"], key=it["key"], pivots=pivots,
+                         dm=b.dm, fingerprint=fp,
+                         extra={"name": it["name"], "nation": it.get("nation", ""), "prefab": it["prefab"]})
+            shared[key] = it["id"]
+            done += 1
+            print(f"  {it['id']}: {e['parts']} {e['tris']} tris, dm {e['dm']}, "
+                  f"{e['length']} x {e['width']} x {e['height']} m", flush=True)
+        except Exception as exc:  # noqa: BLE001 - one vehicle never stops the rest
+            failed += 1
+            print(f"  {it['id']}: FAILED {exc}", flush=True)
+    for u in list(pack.index["units"]):
+        e = pack.index["units"][u]
+        e["aliases"] = sorted(a for a in e.get("aliases", []) if a != u)
+    pack.save()
+    print(f"arma-reforger: {done} written, {same} unchanged or shared, {failed} failed; {pack.bytes / 1e6:.1f} MB; "
+          f"{time.monotonic() - t0:.0f} s -> {pack.index_path}")
+    return 1 if failed and not done else 0
+
+
 def cmd_catalog(args) -> int:
     import json
     import os
@@ -95,8 +168,14 @@ def cmd_catalog(args) -> int:
     out = Path(args.out) if args.out else (Path(lv) / "arma-reforger" / "catalog.json" if lv else Path("catalog.json"))
     t0 = time.monotonic()
     items = build(fs)
-    exe = next((p for p in (install / "ArmaReforgerSteam.exe", install / "ArmaReforger.exe") if p.is_file()), None)
-    build_id = time.strftime("%Y-%m-%d", time.gmtime(exe.stat().st_mtime)) if exe else "unknown"
+    pack = out.parent.parent / "model-packs" / "arma-reforger" / "model-pack.json"
+    if pack.is_file():
+        units = json.loads(pack.read_text(encoding="utf-8")).get("units", {})
+        files = {a: e["file"] for u, e in units.items() for a in [u, *e.get("aliases", [])]}
+        for it in items:
+            if it["id"] in files:
+                it["model"] = f"model-packs/arma-reforger/{files[it['id']]}"
+    build_id = game_build(install)
     doc = {"format": "3dheat-catalog", "version": 1, "game": "arma-reforger", "gameBuild": build_id,
            "source": f"heat3d-reforger-maps {__version__}", "items": sorted(items, key=lambda i: (i["kind"], i["id"]))}
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -115,3 +194,10 @@ def add_verbs(sub) -> None:
     p.add_argument("-o", "--out", help="the .json to write (default <HEAT3D_LEVELS>/arma-reforger/catalog.json)")
     p.add_argument("--game", help="the Arma Reforger folder")
     p.set_defaults(run=cmd_catalog)
+    p = sub.add_parser("models", help="every catalogued vehicle's model -> a local model pack for the viewer")
+    p.add_argument("-o", "--out", help="the levels folder (default HEAT3D_LEVELS); the pack goes to "
+                                       "<out>/model-packs/arma-reforger/")
+    p.add_argument("--game", help="the Arma Reforger folder")
+    p.add_argument("--only", nargs="*", help="only vehicles whose id contains one of these")
+    p.add_argument("--force", action="store_true", help="write every vehicle again, even unchanged ones")
+    p.set_defaults(run=cmd_models)

@@ -180,11 +180,16 @@ def find_install(where: str | Path | None = None) -> Path | None:
 
 
 def unlz4(data: bytes) -> bytes:
-    """An `LZ4 ` mip level: chunked LZ4 blocks, each able to refer to the 64 KB before it."""
+    """An `LZ4 ` mip level: its unpacked size, then chunked LZ4 blocks (`unlz4_blocks`)."""
+    (total,) = struct.unpack_from("<I", data, 0)
+    return unlz4_blocks(data, total, 4)
+
+
+def unlz4_blocks(data: bytes, total: int, at: int = 0) -> bytes:
+    """Chunked LZ4 blocks unpacking to `total` bytes, each able to refer to the 64 KB before it."""
     import lz4.block
 
-    (total,) = struct.unpack_from("<I", data, 0)
-    at, out = 4, bytearray()
+    out = bytearray()
     while True:
         if at + 4 > len(data):
             raise EnfusionError("an LZ4 level runs short of its chunks")

@@ -168,7 +168,7 @@ def main(argv: list[str] | None = None) -> int:
         update.startup("heat3d_ext_reforger")
     except Exception:  # an update check never stops an export
         pass
-    if args.verb == "catalog":
+    if args.verb in ("catalog", "models"):
         return args.run(args)
     from . import enfusionworld
 
