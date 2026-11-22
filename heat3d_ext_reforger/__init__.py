@@ -1,3 +1,3 @@
 """Arma Reforger worlds (Enfusion) from your own install into 3DHeat levels: terrain in its own colours, the sea, the placed models as boxes."""
 
-__version__ = "0.5.0"
+__version__ = "0.6.0"
